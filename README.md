@@ -10,18 +10,26 @@
 
 ## 索引
 
-### [商品管理系统](https://github.com/JasonSun2018/Course-Homework/tree/master/c-GoodsManageSys)
+#### [商品管理系统](https://github.com/JasonSun2018/Course-Homework/tree/master/c-GoodsManageSys)
 
 基于**C语言**，入门级的课业项目。
 
-### [二叉树](https://github.com/JasonSun2018/Course-Homework/tree/master/cpp-BinaryTree-demo)
+#### [二叉树](https://github.com/JasonSun2018/Course-Homework/tree/master/cpp-BinaryTree-demo)
 
 基于**C++**，根据二叉树的特性完成的小测试demo。
 
-### [学生信息管理系统](https://github.com/JasonSun2018/Course-Homework/tree/master/cpp-StudentsManageSys)
+#### [学生信息管理系统](https://github.com/JasonSun2018/Course-Homework/tree/master/cpp-StudentsManageSys)
 
 基于**C++**，入门级的课业项目，运用上数据结构的知识。
 
-### [结巴分词可视化程序](https://github.com/JasonSun2018/Course-Homework/tree/master/python-jieba-WordsCloudMaker-ch-demo)
+#### [结巴分词可视化程序](https://github.com/JasonSun2018/Course-Homework/tree/master/python-jieba-WordsCloudMaker-ch-demo)
 
 基于**Python**，运用上[jieba分词](https://github.com/fxsjy/jieba)的简单可视化应用程序。
+
+#### [Shell编程课程实验](https://github.com/JasonSun2018/Course-Homework/tree/master/shell-SimpleExperiment)
+
+基于**centos7**，入门级的shell编程实验项目。
+
+#### [Java编程课程作业](https://github.com/JasonSun2018/Course-Homework/tree/master/java-CourseWork)
+
+基于**Java**，Java学习的课程作业，仅作记录用。**//暂未上传**
