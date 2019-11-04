@@ -1,6 +1,8 @@
 # 用户登录监测
 
-编写一个用户监测程序usr_monitor, 其运行格式为： `usr_monitor username`
+编写一个用户监测程序usr_monitor, 其运行格式为：
+
+> usr_monitor username
 
 其中 `username` 是用户指定的任意一个用户名。
 
