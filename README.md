@@ -34,6 +34,12 @@
 
 基于**Python**，运用上[jieba分词](https://github.com/fxsjy/jieba)的简单可视化应用程序。
 
+### Python编程课程作业
+
+[python-CourseWork](https://github.com/JasonSun2018/Course-Homework/tree/master/python-CourseWork)
+
+基于**Python**，Python学习的部分课程作业，仅作记录用。
+
 ### Shell编程课程实验
 
 [shell-SimpleExperiment](https://github.com/JasonSun2018/Course-Homework/tree/master/shell-SimpleExperiment)
