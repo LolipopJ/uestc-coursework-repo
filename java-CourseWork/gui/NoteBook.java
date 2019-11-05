@@ -3,20 +3,24 @@ package coursework.gui;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 /**
  * @author Lolipop
- * @lastUpdate 2019/11/5
+ * @version 1.0
+ * @lastUpdate 2019/11/6
  */
 public class NoteBook {
     private JTextArea textArea;
+    private File file = null;
+    private JFrame frame = new JFrame("NoteBook");
+    private Clipboard clipboard = frame.getToolkit().getSystemClipboard();
 
     private NoteBook() {
-        // Basic
-        JFrame frame = new JFrame("NoteBook");
+        // Frame
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -29,16 +33,17 @@ public class NoteBook {
         frame.add(pane);
 
         // Menu
-        // Menu-init menu body
+        // Menu: init menu body
         JMenuBar menu = new JMenuBar();
         frame.setJMenuBar(menu);
-        // Menu-create menus
+
+        // Menu: create menus
         JMenu fileMenu = new JMenu("File(F)");
         JMenu editMenu = new JMenu("Edit(E)");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         editMenu.setMnemonic(KeyEvent.VK_E);
 
-        // Menu-create menu items
+        // Menu: create menu items
         JMenuItem newItem = new JMenuItem("New(N)", KeyEvent.VK_N);
         JMenuItem openItem = new JMenuItem("Open(O)", KeyEvent.VK_O);
         JMenuItem saveItem = new JMenuItem("Save(S)", KeyEvent.VK_S);
@@ -47,34 +52,58 @@ public class NoteBook {
         JMenuItem copyItem = new JMenuItem("Copy(C)", KeyEvent.VK_C);
         JMenuItem pasteItem = new JMenuItem("Paste(P)", KeyEvent.VK_P);
 
-        // Menu-set item events
+        // fileMenu: set events
         // 新建NoteBook窗口
-        newItem.addActionListener(e -> {
-            new NoteBook();
-        });
+        newItem.addActionListener(e -> new NoteBook());
 
         // 打开文件
         openItem.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             if (fileChooser.showOpenDialog(openItem) == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                // 在新窗口读取文件
-                NoteBook newFile = new NoteBook();
-                readFile(file, newFile.textArea);
-            };
+                File aimFile = fileChooser.getSelectedFile();
+
+                // 打开新窗口并读取文件
+                NoteBook newNoteBook = new NoteBook();
+                readFile(aimFile, newNoteBook.textArea);
+            }
         });
 
         // 保存文件
         saveItem.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
-            
-            // 后缀名过滤
-            fileChooser.setFileFilter(new FileNameExtensionFilter("文本文件(*.txt)", "txt"));
-
-            if (fileChooser.showSaveDialog(saveItem) == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
+            // 文件存在时（已经保存过）
+            if (file != null) {
                 saveFile(file.getPath());
-            };
+            }
+
+            // 文件不存在时（初次保存）
+            else {
+                JFileChooser fileChooser = new JFileChooser();
+
+                // 后缀名过滤
+                String extension = ".txt";
+                fileChooser.setFileFilter(new FileNameExtensionFilter("文本文件(*.txt)", extension));
+
+                if (fileChooser.showSaveDialog(saveItem) == JFileChooser.APPROVE_OPTION) {
+                    File newFile = fileChooser.getSelectedFile();
+
+                    // 获取用户输入的文件名
+                    String fName = fileChooser.getName(newFile);
+
+                    // 若文件名不包含".txt"后缀则在最后加上".txt"
+                    if (!fName.contains(extension)) {
+                        newFile = new File(fileChooser.getCurrentDirectory(), fName+".txt");
+                    }
+
+                    // 保存文件
+                    saveFile(newFile.getPath());
+
+                    // 修改全局变量file
+                    file = newFile;
+
+                    // 修改窗口title
+                    frame.setTitle(file.getName()+" - NoteBook");
+                }
+            }
         });
 
         // 退出NoteBook
@@ -86,7 +115,50 @@ public class NoteBook {
             }
         });
 
-        // Menu-add items to menus
+        // editMenu: set events
+        // 剪切
+        cutItem.addActionListener(e -> {
+            // 将选中的文本内容传递给剪切板
+            StringSelection cutText = new StringSelection(textArea.getSelectedText());
+            clipboard.setContents(cutText, null);
+
+            // 删除选中文本
+            int start = textArea.getSelectionStart();
+            int end = textArea.getSelectionEnd();
+            textArea.replaceRange("", start, end);
+        });
+
+        // 复制
+        copyItem.addActionListener(e -> {
+            StringSelection copyText = new StringSelection(textArea.getSelectedText());
+            clipboard.setContents(copyText, null);
+        });
+
+        // 粘贴
+        pasteItem.addActionListener(e -> {
+            // 从剪切板获取内容保存到contents中
+            Transferable contents = clipboard.getContents(null);
+
+            // 设置DataFlavor映射剪切板String型数据
+            DataFlavor flavor = DataFlavor.stringFlavor;
+
+            // 若存在String型数据，则将数据粘贴到光标选中处
+            if (contents.isDataFlavorSupported(flavor)) {
+                try {
+                    // 将contents数据转化成String格式保存到text中
+                    String text = (String)contents.getTransferData(flavor);
+
+                    // 替换选中内容
+                    int start = textArea.getSelectionStart();
+                    int end = textArea.getSelectionEnd();
+                    textArea.replaceRange(text, start, end);
+                } catch (UnsupportedFlavorException | IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        // Menu: add items to menus
         fileMenu.add(newItem);
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
@@ -95,7 +167,7 @@ public class NoteBook {
         editMenu.add(copyItem);
         editMenu.add(pasteItem);
 
-        // Menu-add menus to menu body & set visible
+        // Menu: add menus to menu body & set visible
         menu.add(fileMenu);
         menu.add(editMenu);
         menu.setVisible(true);
