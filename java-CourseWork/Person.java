@@ -2,7 +2,7 @@ package coursework;
 
 /**
  * @author Lolipop
- * @lastUpdate 2019/10/28
+ * @lastUpdate 2019/11/6
  */
 public class Person {
     String name;
