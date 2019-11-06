@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @author Lolipop
  * @lastUpdate 2019/11/6
  */
-public class TayTest {
+public class TryTest {
     public static void main (String[] args) {
         Scanner scan = new Scanner(System.in);
 

@@ -68,7 +68,7 @@ Last updated: 2019/11/6
 
 14. 编写一个含有ArithmeticException、IndexOutOfBoundsException和NullPointerException的异常处理程序
 
-    throwable/TayTest.java
+    throwable/TryTest.java
 
 15. 编写程序实现从键盘输入数据，保存到指定文件里
 
