@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @author Lolipop
- * @lastUpdate 2019/10/30
+ * @lastUpdate 2019/11/6
  */
 public class TayTest {
     public static void main (String[] args) {
@@ -71,9 +71,10 @@ class AIOOBException {
 class NPException {
     NPException () {
         try {
-            // AIOOBException ai;
-            // AIOOBException aio;
-            // ai.equals(aio);
+            String name = null;
+            if (name.equals("null")){
+                System.out.print(name);
+            }
         } catch (NullPointerException e) {
             System.err.println("Error message: "+e.getMessage());
             System.err.println("Exception string:"+e.toString());

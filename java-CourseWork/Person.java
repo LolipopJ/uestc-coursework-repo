@@ -15,7 +15,7 @@ public class Person {
         this.age = testAge;
     }
 
-    protected void setData (String testName, char testSex, int testAge) {
+    private void setData(String testName, char testSex, int testAge) {
         this.name = testName;
         this.sex = testSex;
         this.age = testAge;

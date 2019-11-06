@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author Lolipop
- * @version 1.0
+ * @version 1.0.1
  * @lastUpdate 2019/11/6
  */
 public class NoteBook {
@@ -182,11 +182,13 @@ public class NoteBook {
      * @param textArea 新建窗口的textArea
      */
     private void readFile (File file, JTextArea textArea) {
-        BufferedReader bReader;
+        // init StringBuilder
+        StringBuilder sBuilder = new StringBuilder();
         try {
-            // init BufferedReader & StringBuilder & str
-            bReader = new BufferedReader(new FileReader(file));
-            StringBuilder sBuilder = new StringBuilder();
+            // init BufferedReader & str
+            // 指定GB2312编码以显示文件的中文字符
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(new FileInputStream(file),
+                    "GB2312"));
             String str;
 
             // BufferedReader所读取数据不为空行时，把str存储的行内容传递给StringBuilder
