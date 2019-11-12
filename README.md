@@ -12,42 +12,42 @@
 
 ### 商品管理系统
 
-[c-GoodsManageSys](https://github.com/JasonSun2018/Course-Homework/tree/master/c-GoodsManageSys)
+[c-GoodsManageSys](./c-GoodsManageSys)
 
 > 基于**C语言**，入门级的课业项目。
 
 ### 二叉树
 
-[cpp-BinaryTree-demo](https://github.com/JasonSun2018/Course-Homework/tree/master/cpp-BinaryTree-demo)
+[cpp-BinaryTree-demo](./cpp-BinaryTree-demo)
 
 > 基于**C++**，根据二叉树的特性完成的小测试demo。
 
 ### 学生信息管理系统
 
-[cpp-StudentsManageSys](https://github.com/JasonSun2018/Course-Homework/tree/master/cpp-StudentsManageSys)
+[cpp-StudentsManageSys](./cpp-StudentsManageSys)
 
 > 基于**C++**，入门级的课业项目，运用上数据结构的知识。
 
 ### 结巴分词可视化程序
 
-[python-jieba-WordsCloudMaker-ch-demo](https://github.com/JasonSun2018/Course-Homework/tree/master/python-jieba-WordsCloudMaker-ch-demo)
+[python-jieba-WordsCloudMaker-ch-demo](./python-jieba-WordsCloudMaker-ch-demo)
 
-> 基于**Python**，运用上[jieba分词](https://github.com/fxsjy/jieba)的简单可视化应用程序。
+> 基于**Python**，运用上[jieba分词](./jieba)的简单可视化应用程序。
 
 ### Python编程课程作业
 
-[python-CourseWork](https://github.com/JasonSun2018/Course-Homework/tree/master/python-CourseWork)
+[python-CourseWork](./python-CourseWork)
 
 > 基于**Python**，Python学习的部分课程作业，仅作记录用。
 
 ### Shell编程课程实验
 
-[shell-SimpleExperiment](https://github.com/JasonSun2018/Course-Homework/tree/master/shell-SimpleExperiment)
+[shell-SimpleExperiment](./shell-SimpleExperiment)
 
 > 基于**centos7**，入门级的shell编程实验项目。
 
 ### Java编程课程作业
 
-[java-CourseWork](https://github.com/JasonSun2018/Course-Homework/tree/master/java-CourseWork)
+[java-CourseWork](./java-CourseWork)
 
 > 基于**Java**，Java学习的课程作业，仅作记录用。**IDEA**是最好的Java开发环境！
