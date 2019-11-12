@@ -6,15 +6,15 @@
 
 1. 数据的输入输出和文件管理；
 
-    [TextBuilding and KeyboardInput](https://github.com/JasonSun2018/Course-Homework/tree/master/shell-SimpleExperiment/TextBuilding%20and%20KeyboardInput)
+    [TextBuilding and KeyboardInput](./TextBuilding%20and%20KeyboardInput)
 
 2. 文件状态监测和进程控制；
 
-    [FilesizeMonitor](https://github.com/JasonSun2018/Course-Homework/tree/master/shell-SimpleExperiment/FilesizeMonitor)
+    [FilesizeMonitor](./FilesizeMonitor)
 
 3. 用户登录监测。
 
-    [LoginMonitor](https://github.com/JasonSun2018/Course-Homework/tree/master/shell-SimpleExperiment/LoginMonitor)
+    [LoginMonitor](./LoginMonitor)
 
 这三个实验题目涉及UNIX系统中的 **“文件”** 和 **“进程”** 两个基本概念，都是需要在熟练掌握shell编程语言、各种基本命令、以及输入输出重定向和管道的基本功能和用法的基础上，鼓励学生不拘形式，充分发挥自己的创造力，设计出既满足功能要求，又别具一格的程序模块。
 

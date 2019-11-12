@@ -18,7 +18,7 @@
 
 ### 二叉树
 
-[cpp-BinaryTree-demo](./cpp-BinaryTree-demo)
+[cpp-BinaryTree-demo](./cpp-BinaryTree)
 
 > 基于**C++**，根据二叉树的特性完成的小测试demo。
 
@@ -30,13 +30,13 @@
 
 ### 结巴分词可视化程序
 
-[python-jieba-WordsCloudMaker-ch-demo](./python-jieba-WordsCloudMaker-ch-demo)
+[python-jieba-WordsCloudMaker-ch-demo](./python-jieba-WordsCloudMaker)
 
 > 基于**Python**，运用上[jieba分词](./jieba)的简单可视化应用程序。
 
 ### Python编程课程作业
 
-[python-CourseWork](./python-CourseWork)
+[python-CourseWork](./python-Coursework)
 
 > 基于**Python**，Python学习的部分课程作业，仅作记录用。
 
@@ -48,6 +48,6 @@
 
 ### Java编程课程作业
 
-[java-CourseWork](./java-CourseWork)
+[java-CourseWork](./java-Coursework)
 
 > 基于**Java**，Java学习的课程作业，仅作记录用。**IDEA**是最好的Java开发环境！
