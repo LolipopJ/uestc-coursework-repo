@@ -23,4 +23,13 @@
     - 选择生成词云图片的字体
 
     - 调整字体的大小和随机变动值
-    
+
+## 展示
+
+- 主界面
+
+    ![main](https://github.com/JasonSun2018/img-folder/blob/master/python-jieba-WordsCloudMaker/main.png)
+
+- 分词对比
+
+    ![result](https://github.com/JasonSun2018/img-folder/blob/master/python-jieba-WordsCloudMaker/%E5%AF%B9%E6%AF%94.png)
