@@ -2,6 +2,7 @@
 // https://github.com/clowwindy/gfwlist2pac
 
 var domains = {
+  "deviantart.com": 1,
   "steamcommunity.com": 1, 
   "gimpshop.com": 1, 
   "directcreative.com": 1, 
@@ -2480,6 +2481,7 @@ var domains = {
   "behance.net": 1, 
   "pixiv.net": 1,
   "web.telegram.org": 1,
+  "telegra.ph":1,
   "t.me": 1,
   "w3schools.com": 1,
   "cn.torrentkitty.tv": 1,
