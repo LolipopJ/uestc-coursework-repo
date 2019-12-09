@@ -1,6 +1,6 @@
 /**
  * @author Lolipop
- * @lastUpdate 2019/12/7
+ * @lastUpdate 2019/12/9
  */
 public class TestStudent {
     public static void main(String[] args) {
@@ -8,7 +8,7 @@ public class TestStudent {
         testStudent.display();
         System.out.println("-----------------");
 
-        testStudent.setSid("XiaoHong");
+        testStudent.setSid("2019091203024");
         testStudent.display();
         System.out.println("-----------------");
 
