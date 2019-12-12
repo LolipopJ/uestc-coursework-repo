@@ -1,7 +1,5 @@
 # 学生选课查询系统
 
-Last updated: 2019/12/9
-
 ## 实验内容
 
 1. 定义一个名为[Person](./Person.java)的类，含有两个String类型的成员变量name和sex，一个int类型的成员变量age，它们用protect修饰符，分别实现getXXX()访问方法和setXXX()修改方法；实现构造方法Person(String name,String sex,int age)；实现成员方法display()显示输出类的成员变量的信息。编写独立的测试文件[TestPerson](./TestPerson.java).
@@ -16,3 +14,9 @@ Last updated: 2019/12/9
 5. 编程实现分别输入5条记录的教师、学生、课程、排课、选课等信息，并利用文件类的方法，写入文件中；利用编写的readfile()方法，将文件的信息分别读入对象数组中。编写程序任意输入学生的学号，查询显示该学生所选课程的名称、教师、上课地点。
    - 终端界面[QuerySystem](./QuerySystem.java)
    - ~~图形界面[QuerySystemGui](./QuerySystemGui.java)~~（暂未实现）
+
+### 更新日志
+
+#### 2019/12/12
+
+- 修复了当Myfile写入文件时，若目标文件存在但没有存储数据时发生异常的bug.

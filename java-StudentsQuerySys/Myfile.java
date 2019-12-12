@@ -2,7 +2,7 @@ import java.io.*;
 
 /**
  * @author Lolipop
- * @lastUpdate 2019/12/8
+ * @lastUpdate 2019/12/12
  */
 public class Myfile {
     // 设置opfile默认路径
@@ -29,7 +29,7 @@ public class Myfile {
         File file = new File(opfile, "studentData.dat");
         Student[] writeStudents;
 
-        if (file.exists()) {
+        if (file.exists() && file.length()!=0) {
             // 若文件存在，则先从文件中读取对象到对象数组readStudents中
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -79,7 +79,7 @@ public class Myfile {
         File file = new File(opfile, "teacherData.dat");
         Teacher[] writeTeachers;
 
-        if (file.exists()) {
+        if (file.exists() && file.length()!=0) {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Teacher[] readTeachers = (Teacher[]) ois.readObject();
@@ -122,7 +122,7 @@ public class Myfile {
         File file = new File(opfile, "courseData.dat");
         Course[] writeCourses;
 
-        if (file.exists()) {
+        if (file.exists() && file.length()!=0) {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Course[] readCourses = (Course[]) ois.readObject();
@@ -165,7 +165,7 @@ public class Myfile {
         File file = new File(opfile, "scheduleData.dat");
         Schedule[] writeSchedules;
 
-        if (file.exists()) {
+        if (file.exists() && file.length()!=0) {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Schedule[] readSchedules = (Schedule[]) ois.readObject();
@@ -208,7 +208,7 @@ public class Myfile {
         File file = new File(opfile, "electivecourseData.dat");
         Electivecourse[] writeElectivecourses;
 
-        if (file.exists()) {
+        if (file.exists() && file.length()!=0) {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Electivecourse[] readElectivecourses = (Electivecourse[]) ois.readObject();
