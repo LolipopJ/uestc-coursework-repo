@@ -37,10 +37,11 @@ public class Triangle {
     private static void check(Triangle triangle) {
         int[] side = {triangle.a, triangle.b, triangle.c};
 
-        // 进行排序，排序后数组值依次增大
+        // 对存储边长的数组进行排序
+        // 排序后数组值依次增大
         Arrays.sort(side);
 
-        // 边长应大于0
+        // 三角形边长应大于0
         for (int length : side) {
             if (length <= 0) {
                 System.out.println("不能构成三角形（存在边长小于等于0）");
