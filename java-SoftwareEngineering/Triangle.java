@@ -10,17 +10,10 @@ public class Triangle {
     private static Scanner scan = new Scanner(System.in);
 
     public static void main (String[] args) {
-        boolean flag = true;
-        int choice;
-
-        while (flag) {
-            System.out.print("\n#1 check a triangle.\n#0 quit.\nchoice: #");
-            choice = scan.nextInt();
-            switch (choice) {
-                case 1: checkTriangle(); break;
-                case 0: flag = false; System.out.println("You quit successfully."); break;
-                default: System.out.println("Wrong code! Check your input.");
-            }
+        while (true) {
+            System.out.print("---------------------\n");
+            checkTriangle();
+            System.out.print("---------------------\n");
         }
     }
 
