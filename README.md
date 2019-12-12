@@ -40,4 +40,12 @@
 
 ### 学生选课查询系统
 
-基于**Java**，面向对象设计简单的应用程序，实现给定学号查询指定学生的选课信息。[java-StudentsQuerySys](./java-StudentsQuerySys)
+基于**Java**，面向对象设计简单的应用程序，实现给定学号查询指定学生的选课信息功能。[java-StudentsQuerySys](./java-StudentsQuerySys)
+
+### 软件工程基础实验
+
+[java-SoftwareEngineering](./java-SoftwareEngineering)包括两个部分：
+
+- 基于**Java**，[Triangle](./java-SoftwareEngineering/Triangle.java)通过输入边的长度判断三角形的类型，通过输入学生分数计算相关内容。
+
+- 基于**Android 9**，人力资源管理系统，实现人事信息管理和考勤管理两个功能。[HrManagerSys](./java-SoftwareEngineering/HrManagerSys)
