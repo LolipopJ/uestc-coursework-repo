@@ -1,6 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -45,6 +50,8 @@ public class QuerySystemGui {
     final private static String CLASS_ID = "班号";
     final private static String CLASS_ROOM = "教室";
     final private static String ELECTIVE_COURSE_ID = "选课号";
+    final private static String MALE = "男";
+    final private static String FEMALE = "女";
 
     // 初始化对象数组
     private static Student[] students = new Student[MAXSIZE];
@@ -53,42 +60,132 @@ public class QuerySystemGui {
     private static Schedule[] schedules = new Schedule[MAXSIZE];
     private static Electivecourse[] electiveCourses = new Electivecourse[MAXSIZE];
 
+    // JFrame框架
+    private static JFrame frame = new JFrame(sysTitle);
+
+    // 主面板，采用边框布局
+    private static JPanel mainPanel = new JPanel(new BorderLayout(5,0));
+
+    // 选项面板，采用流式布局
+    private static JPanel optionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+
+    // 选项面板按钮
+    private static JButton queryInfoBtn = new JButton(QUERY_INFO_TITLE);
+    private static JButton studentBtn = new JButton(STUDENT_TITLE);
+    private static JButton teacherBtn = new JButton(TEACHER_TITLE);
+    private static JButton courseBtn = new JButton(COURSE_TITLE);
+    private static JButton scheduleBtn = new JButton(SCHEDULE_TITLE);
+    private static JButton electiveCourseBtn = new JButton(ELECTIVE_COURSE_TITLE);
+
+    // 表格面板，采用边框布局
+    private static JPanel queryInfoPanel = new JPanel(new BorderLayout());
+    private static JPanel studentPanel = new JPanel(new BorderLayout());
+    private static JPanel teacherPanel = new JPanel(new BorderLayout());
+    private static JPanel coursePanel = new JPanel(new BorderLayout());
+    private static JPanel schedulePanel = new JPanel(new BorderLayout());
+    private static JPanel electiveCoursePanel = new JPanel(new BorderLayout());
+
+    // 表格面板存放的表格
+    private static JTable queryInfoTable;
+    private static JTable studentTable;
+    private static JTable teacherTable;
+    private static JTable courseTable;
+    private static JTable scheduleTable;
+    private static JTable electiveCourseTable;
+    private static Vector<String> queryColumnName = new Vector<>();
+    private static Vector<String> studentColumnName = new Vector<>();
+    private static Vector<String> teacherColumnName = new Vector<>();
+    private static Vector<String> courseColumnName = new Vector<>();
+    private static Vector<String> scheduleColumnName = new Vector<>();
+    private static Vector<String> electiveCourseColumnName = new Vector<>();
+
+    // 输入面板，采用流式布局
+    private static JPanel queryInfoInputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
+    private static JPanel insertStudentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
+    private static JPanel insertTeacherPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
+    private static JPanel insertCoursePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
+    private static JPanel insertSchedulePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
+    private static JPanel insertElectiveCoursePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
+
+    // 输入面板标签
+    private static JLabel studentNameLable = new JLabel(NAME);
+    private static JLabel studentSexLable = new JLabel(SEX);
+    private static JLabel studentAgeLable = new JLabel(AGE);
+    private static JLabel teacherNameLable = new JLabel(NAME);
+    private static JLabel teacherSexLable = new JLabel(SEX);
+    private static JLabel teacherAgeLable = new JLabel(AGE);
+    private static JLabel studentIdLable_insert = new JLabel(STUDENT_ID);
+    private static JLabel studentIdLable_query = new JLabel(STUDENT_ID);
+    private static JLabel studentIdLable_comboBox = new JLabel(STUDENT_ID);
+    private static JLabel majorLable = new JLabel(MAJOR);
+    private static JLabel teacherIdLable = new JLabel(TEACHER_ID);
+    private static JLabel teacherIdLable_comboBox = new JLabel(TEACHER_ID);
+    private static JLabel titleLable = new JLabel(TITLE);
+    private static JLabel courseIdLable = new JLabel(COURSE_ID);
+    private static JLabel courseIdLable_comboBox = new JLabel(COURSE_ID);
+    private static JLabel courseNameLable = new JLabel(COURSE_NAME);
+    private static JLabel courseHourLable = new JLabel(COURSE_HOUR);
+    private static JLabel classIdLable = new JLabel(CLASS_ID);
+    private static JLabel classIdLable_comboBox = new JLabel(CLASS_ID);
+    private static JLabel classRoomLable = new JLabel(CLASS_ROOM);
+    private static JLabel electiveCourseIdLable = new JLabel(ELECTIVE_COURSE_ID);
+
+    // 输入面板文本输入框
+    private static JTextField studentNameTextField = new JTextField(10);
+    private static JTextField studentAgeTextField = new JTextField(10);
+    private static JTextField teacherNameTextField = new JTextField(10);
+    private static JTextField teacherAgeTextField = new JTextField(10);
+    private static JTextField studentIdTextField_insert = new JTextField(10);
+    private static JTextField studentIdTextField_query = new JTextField(10);
+    private static JTextField majorTextField = new JTextField(10);
+    private static JTextField teacherIdTextField = new JTextField(10);
+    private static JTextField titleTextField = new JTextField(10);
+    private static JTextField courseIdTextField = new JTextField(10);
+    private static JTextField courseNameTextField = new JTextField(10);
+    private static JTextField courseHourTextField = new JTextField(10);
+    private static JTextField classIdTextField = new JTextField(10);
+    private static JTextField classRoomTextField = new JTextField(10);
+    private static JTextField electiveCourseIdTextField = new JTextField(10);
+
+    // 输入面板下拉框
+    private static JComboBox<String> studentSexComboBox = new JComboBox<>();
+    private static JComboBox<String> teacherSexComboBox = new JComboBox<>();
+    private static JComboBox<String> courseIdComboBox = new JComboBox<>();
+    private static JComboBox<String> teacherIdComboBox = new JComboBox<>();
+    private static JComboBox<String> studentIdComboBox = new JComboBox<>();
+    private static JComboBox<String> classIdComboBox = new JComboBox<>();
+
+    // 输入面板按钮
+    private static JButton confirmBtn1 = new JButton("查询");
+    private static JButton confirmBtn2 = new JButton("添加");
+    private static JButton confirmBtn3 = new JButton("添加");
+    private static JButton confirmBtn4 = new JButton("添加");
+    private static JButton confirmBtn5 = new JButton("添加");
+    private static JButton confirmBtn6 = new JButton("添加");
+    private static JButton resetBtn1 = new JButton("重置");
+    private static JButton resetBtn2 = new JButton("重置");
+    private static JButton resetBtn3 = new JButton("重置");
+    private static JButton resetBtn4 = new JButton("重置");
+    private static JButton resetBtn5 = new JButton("重置");
+    private static JButton resetBtn6 = new JButton("重置");
+
+    // 提示信息窗口
+    private static Dialog dialog = new Dialog(frame, "提示信息", true);
+    private static JLabel dialogLable = new JLabel();
+    private static JButton dialogButton = new JButton("确认");
+
     public static void main (String[] args) throws IOException, ClassNotFoundException {
         new QuerySystemGui();
     }
 
     private QuerySystemGui() throws IOException, ClassNotFoundException {
-        readFile();
-        // 框架
-        JFrame frame = new JFrame(sysTitle);
+        // 设置框架属性
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(800, 400));
         frame.setLocationRelativeTo(null);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
-        // 主面板
-        JPanel mainPanel = new JPanel(new BorderLayout(5,0));
-
-        // 选项面板，采用流式布局
-        JPanel optionPanel = new JPanel();
-        optionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
-
-        // 表格面板，采用边框布局
-        JPanel queryInfoPanel = new JPanel(new BorderLayout());
-        JPanel studentPanel = new JPanel(new BorderLayout());
-        JPanel teacherPanel = new JPanel(new BorderLayout());
-        JPanel coursePanel = new JPanel(new BorderLayout());
-        JPanel schedulePanel = new JPanel(new BorderLayout());
-        JPanel electiveCoursePanel = new JPanel(new BorderLayout());
-
-        // 输入面板，采用流式布局
-        JPanel queryInfoInputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
-        JPanel insertStudentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
-        JPanel insertTeacherPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
-        JPanel insertCoursePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
-        JPanel insertSchedulePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
-        JPanel insertElectiveCoursePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
-
+        // 设置输入面板属性
         Dimension inputPanelDimension = new Dimension(180, 0);
         queryInfoInputPanel.setPreferredSize(inputPanelDimension);
         insertStudentPanel.setPreferredSize(inputPanelDimension);
@@ -97,14 +194,36 @@ public class QuerySystemGui {
         insertSchedulePanel.setPreferredSize(inputPanelDimension);
         insertElectiveCoursePanel.setPreferredSize(inputPanelDimension);
 
-        // 选项面板按钮
-        JButton queryInfoBtn = new JButton(QUERY_INFO_TITLE);
-        JButton studentBtn = new JButton(STUDENT_TITLE);
-        JButton teacherBtn = new JButton(TEACHER_TITLE);
-        JButton courseBtn = new JButton(COURSE_TITLE);
-        JButton scheduleBtn = new JButton(SCHEDULE_TITLE);
-        JButton electiveCourseBtn = new JButton(ELECTIVE_COURSE_TITLE);
+        // 设置输入面板内容物属性
+        Dimension comboBoxDimension = new Dimension(110, 20);
+        studentSexComboBox.setPreferredSize(comboBoxDimension);
+        teacherSexComboBox.setPreferredSize(comboBoxDimension);
+        courseIdComboBox.setPreferredSize(comboBoxDimension);
+        teacherIdComboBox.setPreferredSize(comboBoxDimension);
+        studentIdComboBox.setPreferredSize(comboBoxDimension);
+        classIdComboBox.setPreferredSize(comboBoxDimension);
 
+        studentSexComboBox.addItem(MALE);
+        studentSexComboBox.addItem(FEMALE);
+        teacherSexComboBox.addItem(MALE);
+        teacherSexComboBox.addItem(FEMALE);
+
+        // 输入面板按钮监听
+        confirmBtn1.addActionListener(new confirmBtn1Listener());
+        confirmBtn2.addActionListener(new confirmBtn2Listener());
+        confirmBtn3.addActionListener(new confirmBtn3Listener());
+        confirmBtn4.addActionListener(new confirmBtn4Listener());
+        confirmBtn5.addActionListener(new confirmBtn5Listener());
+        confirmBtn6.addActionListener(new confirmBtn6Listener());
+
+        resetBtn1.addActionListener(new resetBtn1Listener());
+        resetBtn2.addActionListener(new resetBtn2Listener());
+        resetBtn3.addActionListener(new resetBtn3Listener());
+        resetBtn4.addActionListener(new resetBtn4Listener());
+        resetBtn5.addActionListener(new resetBtn5Listener());
+        resetBtn6.addActionListener(new resetBtn6Listener());
+
+        // 选项面板按钮监听
         queryInfoBtn.addActionListener(e -> {
             if (NOW_CASE != QUERY_INFO_CASE) {
                 mainPanel.removeAll();
@@ -189,127 +308,8 @@ public class QuerySystemGui {
             }
         });
 
-        // 表格面板内容
-        JTable queryInfoTable;
-        JTable studentTable;
-        JTable teacherTable;
-        JTable courseTable;
-        JTable scheduleTable;
-        JTable electiveCourseTable;
-        Vector<String> columnName;
-
-        columnName = new Vector<>();
-        columnName.add(ID);
-        columnName.add(COURSE_NAME);
-        columnName.add(NAME);
-        columnName.add(CLASS_ROOM);
-        queryInfoTable = new JTable(null, columnName);
-
-        columnName = new Vector<>();
-        columnName.add(ID);
-        columnName.add(STUDENT_ID);
-        columnName.add(NAME);
-        columnName.add(SEX);
-        columnName.add(AGE);
-        columnName.add(MAJOR);
-        studentTable = new JTable(getRowData(students), columnName);
-
-        columnName = new Vector<>();
-        columnName.add(ID);
-        columnName.add(TEACHER_ID);
-        columnName.add(NAME);
-        columnName.add(SEX);
-        columnName.add(AGE);
-        columnName.add(TITLE);
-        teacherTable = new JTable(getRowData(teachers), columnName);
-
-        columnName = new Vector<>();
-        columnName.add(ID);
-        columnName.add(COURSE_ID);
-        columnName.add(COURSE_NAME);
-        columnName.add(COURSE_HOUR);
-        courseTable = new JTable(getRowData(courses), columnName);
-
-        columnName = new Vector<>();
-        columnName.add(ID);
-        columnName.add(CLASS_ID);
-        columnName.add(COURSE_ID);
-        columnName.add(TEACHER_ID);
-        columnName.add(CLASS_ROOM);
-        scheduleTable = new JTable(getRowData(schedules), columnName);
-
-        columnName = new Vector<>();
-        columnName.add(ID);
-        columnName.add(ELECTIVE_COURSE_ID);
-        columnName.add(STUDENT_ID);
-        columnName.add(CLASS_ID);
-        electiveCourseTable = new JTable(getRowData(electiveCourses), columnName);
-
-        // 输入面板内容
-        JLabel studentNameLable = new JLabel(NAME);
-        JLabel studentSexLable = new JLabel(SEX);
-        JLabel studentAgeLable = new JLabel(AGE);
-        JLabel teacherNameLable = new JLabel(NAME);
-        JLabel teacherSexLable = new JLabel(SEX);
-        JLabel teacherAgeLable = new JLabel(AGE);
-        JLabel studentIdLable_insert = new JLabel(STUDENT_ID);
-        JLabel studentIdLable_query = new JLabel(STUDENT_ID);
-        JLabel studentIdLable_comboBox = new JLabel(STUDENT_ID);
-        JLabel majorLable = new JLabel(MAJOR);
-        JLabel teacherIdLable = new JLabel(TEACHER_ID);
-        JLabel teacherIdLable_comboBox = new JLabel(TEACHER_ID);
-        JLabel titleLable = new JLabel(TITLE);
-        JLabel courseIdLable = new JLabel(COURSE_ID);
-        JLabel courseIdLable_comboBox = new JLabel(COURSE_ID);
-        JLabel courseNameLable = new JLabel(COURSE_NAME);
-        JLabel courseHourLable = new JLabel(COURSE_HOUR);
-        JLabel classIdLable = new JLabel(CLASS_ID);
-        JLabel classIdLable_comboBox = new JLabel(CLASS_ID);
-        JLabel classRoomLable = new JLabel(CLASS_ROOM);
-        JLabel electiveCourseIdLable = new JLabel(ELECTIVE_COURSE_ID);
-
-        JTextField studentNameTextField = new JTextField(10);
-        JTextField studentAgeTextField = new JTextField(10);
-        JTextField teacherNameTextField = new JTextField(10);
-        JTextField teacherAgeTextField = new JTextField(10);
-        JTextField studentIdTextField_insert = new JTextField(10);
-        JTextField studentIdTextField_query = new JTextField(10);
-        JTextField majorTextField = new JTextField(10);
-        JTextField teacherIdTextField = new JTextField(10);
-        JTextField titleTextField = new JTextField(10);
-        JTextField courseIdTextField = new JTextField(10);
-        JTextField courseNameTextField = new JTextField(10);
-        JTextField courseHourTextField = new JTextField(10);
-        JTextField classIdTextField = new JTextField(10);
-        JTextField classRoomTextField = new JTextField(10);
-        JTextField electiveCourseIdTextField = new JTextField(10);
-
-        JComboBox<String> studentSexTextField = new JComboBox<>();
-        JComboBox<String> teacherSexTextField = new JComboBox<>();
-        JComboBox<String> courseIdComboBox = new JComboBox<>();
-        JComboBox<String> teacherIdComboBox = new JComboBox<>();
-        JComboBox<String> studentIdComboBox = new JComboBox<>();
-        JComboBox<String> classIdComboBox = new JComboBox<>();
-        Dimension comboBoxDimension = new Dimension(110, 20);
-        studentSexTextField.setPreferredSize(comboBoxDimension);
-        teacherSexTextField.setPreferredSize(comboBoxDimension);
-        courseIdComboBox.setPreferredSize(comboBoxDimension);
-        teacherIdComboBox.setPreferredSize(comboBoxDimension);
-        studentIdComboBox.setPreferredSize(comboBoxDimension);
-        classIdComboBox.setPreferredSize(comboBoxDimension);
-
-        JButton confirmBtn1 = new JButton("查询");
-        JButton confirmBtn2 = new JButton("添加");
-        JButton confirmBtn3 = new JButton("添加");
-        JButton confirmBtn4 = new JButton("添加");
-        JButton confirmBtn5 = new JButton("添加");
-        JButton confirmBtn6 = new JButton("添加");
-        JButton resetBtn1 = new JButton("重置");
-        JButton resetBtn2 = new JButton("重置");
-        JButton resetBtn3 = new JButton("重置");
-        JButton resetBtn4 = new JButton("重置");
-        JButton resetBtn5 = new JButton("重置");
-        JButton resetBtn6 = new JButton("重置");
+        // 表格初始化
+        initTable();
 
         // 面板初始化
         queryInfoInputPanel.add(studentIdLable_query);
@@ -322,7 +322,7 @@ public class QuerySystemGui {
         insertStudentPanel.add(studentNameLable);
         insertStudentPanel.add(studentNameTextField);
         insertStudentPanel.add(studentSexLable);
-        insertStudentPanel.add(studentSexTextField);
+        insertStudentPanel.add(studentSexComboBox);
         insertStudentPanel.add(studentAgeLable);
         insertStudentPanel.add(studentAgeTextField);
         insertStudentPanel.add(majorLable);
@@ -335,7 +335,7 @@ public class QuerySystemGui {
         insertTeacherPanel.add(teacherNameLable);
         insertTeacherPanel.add(teacherNameTextField);
         insertTeacherPanel.add(teacherSexLable);
-        insertTeacherPanel.add(teacherSexTextField);
+        insertTeacherPanel.add(teacherSexComboBox);
         insertTeacherPanel.add(teacherAgeLable);
         insertTeacherPanel.add(teacherAgeTextField);
         insertTeacherPanel.add(titleLable);
@@ -398,21 +398,59 @@ public class QuerySystemGui {
         mainPanel.add(queryInfoInputPanel, BorderLayout.WEST);
         NOW_CASE = QUERY_INFO_CASE;
 
+        // 加载提示信息框
+        dialog();
+
         // 设置可见
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
     }
 
-    // 启动系统时读取所有文件信息
-    private static void readFile() throws IOException, ClassNotFoundException {
-        file.readFile(students);
-        file.readFile(teachers);
-        file.readFile(courses);
-        file.readFile(schedules);
-        file.readFile(electiveCourses);
+    // 初始化表格
+    private static void initTable() throws IOException, ClassNotFoundException {
+        // 初始化表格头
+        queryColumnName.add(ID);
+        queryColumnName.add(COURSE_NAME);
+        queryColumnName.add(NAME);
+        queryColumnName.add(CLASS_ROOM);
+        studentColumnName.add(ID);
+        studentColumnName.add(STUDENT_ID);
+        studentColumnName.add(NAME);
+        studentColumnName.add(SEX);
+        studentColumnName.add(AGE);
+        studentColumnName.add(MAJOR);
+        teacherColumnName.add(ID);
+        teacherColumnName.add(TEACHER_ID);
+        teacherColumnName.add(NAME);
+        teacherColumnName.add(SEX);
+        teacherColumnName.add(AGE);
+        teacherColumnName.add(TITLE);
+        courseColumnName.add(ID);
+        courseColumnName.add(COURSE_ID);
+        courseColumnName.add(COURSE_NAME);
+        courseColumnName.add(COURSE_HOUR);
+        scheduleColumnName.add(ID);
+        scheduleColumnName.add(CLASS_ID);
+        scheduleColumnName.add(COURSE_ID);
+        scheduleColumnName.add(TEACHER_ID);
+        scheduleColumnName.add(CLASS_ROOM);
+        electiveCourseColumnName.add(ID);
+        electiveCourseColumnName.add(ELECTIVE_COURSE_ID);
+        electiveCourseColumnName.add(STUDENT_ID);
+        electiveCourseColumnName.add(CLASS_ID);
+
+        // 初始化表格内容
+        queryInfoTable = new JTable(null, queryColumnName);
+        studentTable = new JTable(getRowData(students), studentColumnName);
+        teacherTable = new JTable(getRowData(teachers), teacherColumnName);
+        courseTable = new JTable(getRowData(courses), courseColumnName);
+        scheduleTable = new JTable(getRowData(schedules), scheduleColumnName);
+        electiveCourseTable = new JTable(getRowData(electiveCourses), electiveCourseColumnName);
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData (Student[] students) {
+    // 从文件中获取表格信息
+    private static Vector<Vector<java.io.Serializable>> getRowData(Student[] students) throws IOException, ClassNotFoundException {
+        file.readFile(students);
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Student student : students) {
@@ -432,7 +470,8 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData (Teacher[] teachers) {
+    private static Vector<Vector<java.io.Serializable>> getRowData(Teacher[] teachers) throws IOException, ClassNotFoundException {
+        file.readFile(teachers);
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Teacher teacher : teachers) {
@@ -452,7 +491,8 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData (Course[] courses) {
+    private static Vector<Vector<java.io.Serializable>> getRowData(Course[] courses) throws IOException, ClassNotFoundException {
+        file.readFile(courses);
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Course course : courses) {
@@ -470,7 +510,8 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData (Schedule[] schedules) {
+    private static Vector<Vector<java.io.Serializable>> getRowData(Schedule[] schedules) throws IOException, ClassNotFoundException {
+        file.readFile(schedules);
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Schedule schedule : schedules) {
@@ -489,7 +530,8 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData (Electivecourse[] electiveCourses) {
+    private static Vector<Vector<java.io.Serializable>> getRowData(Electivecourse[] electiveCourses) throws IOException, ClassNotFoundException {
+        file.readFile(electiveCourses);
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Electivecourse electivecourse : electiveCourses) {
@@ -506,4 +548,143 @@ public class QuerySystemGui {
         }
         return rowData;
     }
+
+    private static void dialog() {
+        dialog.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        dialogButton.addActionListener(e-> dialog.setVisible(false));
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                dialog.setVisible(false);
+            }
+        });
+
+        dialog.add(dialogLable);
+        dialog.add(dialogButton);
+    }
+
+    private static void dialog(String words) {
+        dialog.setSize(new Dimension(200, 100));
+        dialog.setLocationRelativeTo(null);
+
+        dialogLable.setText(words);
+        dialog.setVisible(true);
+    }
+
+    private static class confirmBtn1Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class confirmBtn2Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // 检查输入值
+            int studentAge = Integer.parseInt(studentAgeTextField.getText());
+            if (!checkAge(studentAge)) {
+                dialog("学生年龄输入有误，请检查！");
+                return;
+            }
+            String studentSex = Objects.requireNonNull(studentSexComboBox.getSelectedItem()).toString();
+            if (studentSex == null) {
+                dialog("学生性别不能为空，请检查！");
+                return;
+            }
+
+            String studentId = studentIdTextField_insert.getText();
+            String studentName = studentNameTextField.getText();
+            String major = majorTextField.getText();
+
+            // 将输入内容写入文件
+            Student student = new Student(studentName, studentSex, studentAge, studentId, major);
+            try {
+                file.writeFile(student);
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+
+            // 刷新表格
+            //studentTable
+        }
+    }
+
+    private static class confirmBtn3Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class confirmBtn4Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class confirmBtn5Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class confirmBtn6Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class resetBtn1Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class resetBtn2Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class resetBtn3Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class resetBtn4Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class resetBtn5Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static class resetBtn6Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private static boolean checkAge(int age) {
+        // 当输入的年龄大于等于0且小于等于120时，输入数据有效
+        return (age >= 0 && age <= 120);
+    }
+
 }
