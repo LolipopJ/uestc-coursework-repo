@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,12 +8,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * @author Lolipop
- * @lastUpdate 2019/12/15
+ * @lastUpdate 2019/12/16
  */
 public class QuerySystemGui {
     // 文件默认存储目录
@@ -165,19 +165,27 @@ public class QuerySystemGui {
     private static JComboBox<String> studentIdComboBox = new JComboBox<>();
     private static JComboBox<String> classIdComboBox = new JComboBox<>();
 
+    private static ArrayList<String> courseIdList = new ArrayList<>();
+    private static ArrayList<String> teacherIdList = new ArrayList<>();
+    private static ArrayList<String> studentIdList = new ArrayList<>();
+    private static ArrayList<String> classIdList = new ArrayList<>();
+
     // 输入面板按钮
-    private static JButton confirmBtn1 = new JButton("查询");
-    private static JButton confirmBtn2 = new JButton("添加");
-    private static JButton confirmBtn3 = new JButton("添加");
-    private static JButton confirmBtn4 = new JButton("添加");
-    private static JButton confirmBtn5 = new JButton("添加");
-    private static JButton confirmBtn6 = new JButton("添加");
-    private static JButton resetBtn1 = new JButton("重置");
-    private static JButton resetBtn2 = new JButton("重置");
-    private static JButton resetBtn3 = new JButton("重置");
-    private static JButton resetBtn4 = new JButton("重置");
-    private static JButton resetBtn5 = new JButton("重置");
-    private static JButton resetBtn6 = new JButton("重置");
+    private static JButton queryInfoConfirm = new JButton("查询");
+    private static JButton insertStudentConfirm = new JButton("添加");
+    private static JButton insertTeacherConfirm = new JButton("添加");
+    private static JButton insertCourseConfirm = new JButton("添加");
+    private static JButton insertScheduleConfirm = new JButton("添加");
+    private static JButton insertElectiveCourseConfirm = new JButton("添加");
+    private static JButton queryInfoReset = new JButton("重置");
+    private static JButton insertStudentReset = new JButton("重置");
+    private static JButton insertTeacherReset = new JButton("重置");
+    private static JButton insertCourseReset = new JButton("重置");
+    private static JButton insertScheduleReset = new JButton("重置");
+    private static JButton insertElectiveCourseReset = new JButton("重置");
+
+    private static boolean insertScheduleBtn = false;
+    private static boolean insertElectiveCourseBtn = false;
 
     // 提示信息窗口
     private static Dialog dialog = new Dialog(frame, "提示信息", true);
@@ -195,6 +203,9 @@ public class QuerySystemGui {
         frame.setMinimumSize(new Dimension(800, 400));
         frame.setLocationRelativeTo(null);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+
+        // 文件数据初始化
+        readFile();
 
         // 选项面板初始化
         initOptionPanel();
@@ -218,6 +229,15 @@ public class QuerySystemGui {
 
         // 设置可见
         frame.setVisible(true);
+    }
+
+    // 从文件中读取数据
+    private static void readFile() throws IOException, ClassNotFoundException {
+        file.readFile(students);
+        file.readFile(teachers);
+        file.readFile(courses);
+        file.readFile(schedules);
+        file.readFile(electiveCourses);
     }
 
     // 初始化选项面板
@@ -260,33 +280,36 @@ public class QuerySystemGui {
         classIdComboBox.setPreferredSize(comboBoxDimension);
 
         // 输入面板按钮监听
-        confirmBtn1.addActionListener(new confirmBtn1Listener());
-        confirmBtn2.addActionListener(new confirmBtn2Listener());
-        confirmBtn3.addActionListener(new confirmBtn3Listener());
-        confirmBtn4.addActionListener(new confirmBtn4Listener());
-        confirmBtn5.addActionListener(new confirmBtn5Listener());
-        confirmBtn6.addActionListener(new confirmBtn6Listener());
+        queryInfoConfirm.addActionListener(new queryInfoConfirmListener());
+        insertStudentConfirm.addActionListener(new insertStudentConfirmListener());
+        insertTeacherConfirm.addActionListener(new insertTeacherConfirmListener());
+        insertCourseConfirm.addActionListener(new insertCourseConfirmListener());
+        insertScheduleConfirm.addActionListener(new insertScheduleConfirmListener());
+        insertElectiveCourseConfirm.addActionListener(new insertElectiveCourseConfirmListener());
 
-        resetBtn1.addActionListener(new resetBtn1Listener());
-        resetBtn2.addActionListener(new resetBtn2Listener());
-        resetBtn3.addActionListener(new resetBtn3Listener());
-        resetBtn4.addActionListener(new resetBtn4Listener());
-        resetBtn5.addActionListener(new resetBtn5Listener());
-        resetBtn6.addActionListener(new resetBtn6Listener());
+        queryInfoReset.addActionListener(new queryInfoResetListener());
+        insertStudentReset.addActionListener(new insertStudentResetListener());
+        insertTeacherReset.addActionListener(new insertTeacherResetListener());
+        insertCourseReset.addActionListener(new insertCourseResetListener());
+        insertScheduleReset.addActionListener(new insertScheduleResetListener());
+        insertElectiveCourseReset.addActionListener(new insertElectiveCourseResetListener());
 
-        // 当下拉选单未读取到数据时禁用按钮
-
-        // 添加输入面板下拉框数据
+        // 添加输入面板下拉选单数据
         studentSexComboBox.addItem(MALE);
         studentSexComboBox.addItem(FEMALE);
         teacherSexComboBox.addItem(MALE);
         teacherSexComboBox.addItem(FEMALE);
+        getComboBox();
+
+        // 如果排课信息或选课信息下拉选单不存在数据则隐藏其按钮
+        insertScheduleBtn = checkInsertScheduleComboBox();
+        insertElectiveCourseBtn = checkInsertElectiveCourseComboBox();
 
         // 初始化查询界面输入面板
         queryInfoInputPanel.add(studentIdLable_query);
         queryInfoInputPanel.add(studentIdTextField_query);
-        queryInfoInputPanel.add(confirmBtn1);
-        queryInfoInputPanel.add(resetBtn1);
+        queryInfoInputPanel.add(queryInfoConfirm);
+        queryInfoInputPanel.add(queryInfoReset);
 
         // 初始化学生信息界面输入面板
         insertStudentPanel.add(studentIdLable_insert);
@@ -299,8 +322,8 @@ public class QuerySystemGui {
         insertStudentPanel.add(studentAgeTextField);
         insertStudentPanel.add(majorLable);
         insertStudentPanel.add(majorTextField);
-        insertStudentPanel.add(confirmBtn2);
-        insertStudentPanel.add(resetBtn2);
+        insertStudentPanel.add(insertStudentConfirm);
+        insertStudentPanel.add(insertStudentReset);
 
         // 初始化教师信息界面输入面板
         insertTeacherPanel.add(teacherIdLable);
@@ -313,8 +336,8 @@ public class QuerySystemGui {
         insertTeacherPanel.add(teacherAgeTextField);
         insertTeacherPanel.add(titleLable);
         insertTeacherPanel.add(titleTextField);
-        insertTeacherPanel.add(confirmBtn3);
-        insertTeacherPanel.add(resetBtn3);
+        insertTeacherPanel.add(insertTeacherConfirm);
+        insertTeacherPanel.add(insertTeacherReset);
 
         // 初始化课程信息界面输入面板
         insertCoursePanel.add(courseIdLable);
@@ -323,8 +346,8 @@ public class QuerySystemGui {
         insertCoursePanel.add(courseNameTextField);
         insertCoursePanel.add(courseHourLable);
         insertCoursePanel.add(courseHourTextField);
-        insertCoursePanel.add(confirmBtn4);
-        insertCoursePanel.add(resetBtn4);
+        insertCoursePanel.add(insertCourseConfirm);
+        insertCoursePanel.add(insertCourseReset);
 
         // 初始化排课信息界面输入面板
         insertSchedulePanel.add(classIdLable);
@@ -335,8 +358,8 @@ public class QuerySystemGui {
         insertSchedulePanel.add(teacherIdComboBox);
         insertSchedulePanel.add(classRoomLable);
         insertSchedulePanel.add(classRoomTextField);
-        insertSchedulePanel.add(confirmBtn5);
-        insertSchedulePanel.add(resetBtn5);
+        insertSchedulePanel.add(insertScheduleConfirm);
+        insertSchedulePanel.add(insertScheduleReset);
 
         // 初始化选课信息界面输入面板
         insertElectiveCoursePanel.add(electiveCourseIdLable);
@@ -345,12 +368,12 @@ public class QuerySystemGui {
         insertElectiveCoursePanel.add(studentIdComboBox);
         insertElectiveCoursePanel.add(classIdLable_comboBox);
         insertElectiveCoursePanel.add(classIdComboBox);
-        insertElectiveCoursePanel.add(confirmBtn6);
-        insertElectiveCoursePanel.add(resetBtn6);
+        insertElectiveCoursePanel.add(insertElectiveCourseConfirm);
+        insertElectiveCoursePanel.add(insertElectiveCourseReset);
     }
 
     // 初始化表格
-    private static void initTablePanel() throws IOException, ClassNotFoundException {
+    private static void initTablePanel() {
         // 初始化表格列标题
         queryColumnName.add(ID);
         queryColumnName.add(COURSE_NAME);
@@ -398,6 +421,17 @@ public class QuerySystemGui {
         scheduleTable = new JTable(scheduleRowData, scheduleColumnName);
         electiveCourseTable = new JTable(electiveCourseRowData, electiveCourseColumnName);
 
+        // 设置表格默认样式
+        DefaultTableCellRenderer cr = new DefaultTableCellRenderer();
+        // 表格内容居中
+        cr.setHorizontalAlignment(JLabel.CENTER);
+        queryInfoTable.setDefaultRenderer(Object.class, cr);
+        studentTable.setDefaultRenderer(Object.class, cr);
+        teacherTable.setDefaultRenderer(Object.class, cr);
+        courseTable.setDefaultRenderer(Object.class, cr);
+        scheduleTable.setDefaultRenderer(Object.class, cr);
+        electiveCourseTable.setDefaultRenderer(Object.class, cr);
+
         // 初始化表格面板
         queryInfoPanel.add(queryInfoTable.getTableHeader(), BorderLayout.NORTH);
         queryInfoPanel.add(queryInfoTable, BorderLayout.CENTER);
@@ -419,8 +453,7 @@ public class QuerySystemGui {
         return new Vector<>();
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData(Student[] students) throws IOException, ClassNotFoundException {
-        file.readFile(students);
+    private static Vector<Vector<java.io.Serializable>> getRowData(Student[] students) {
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Student student : students) {
@@ -440,8 +473,7 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData(Teacher[] teachers) throws IOException, ClassNotFoundException {
-        file.readFile(teachers);
+    private static Vector<Vector<java.io.Serializable>> getRowData(Teacher[] teachers) {
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Teacher teacher : teachers) {
@@ -461,8 +493,7 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData(Course[] courses) throws IOException, ClassNotFoundException {
-        file.readFile(courses);
+    private static Vector<Vector<java.io.Serializable>> getRowData(Course[] courses) {
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Course course : courses) {
@@ -480,8 +511,7 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData(Schedule[] schedules) throws IOException, ClassNotFoundException {
-        file.readFile(schedules);
+    private static Vector<Vector<java.io.Serializable>> getRowData(Schedule[] schedules) {
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Schedule schedule : schedules) {
@@ -500,8 +530,7 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    private static Vector<Vector<java.io.Serializable>> getRowData(Electivecourse[] electiveCourses) throws IOException, ClassNotFoundException {
-        file.readFile(electiveCourses);
+    private static Vector<Vector<java.io.Serializable>> getRowData(Electivecourse[] electiveCourses) {
         int count = 0;
         Vector<Vector<java.io.Serializable>> rowData = new Vector<>();
         for (Electivecourse electivecourse : electiveCourses) {
@@ -627,6 +656,11 @@ public class QuerySystemGui {
 
                 NOW_CASE = STUDENT_CASE;
                 frame.setTitle(sysTitle+" - "+SCHEDULE_TITLE);
+
+                // 如果排课信息输入面板按钮被隐藏，则重新进行判断
+                if (!insertScheduleBtn) {
+                    insertScheduleBtn = checkInsertScheduleComboBox();
+                }
             }
         }
     }
@@ -644,18 +678,22 @@ public class QuerySystemGui {
 
                 NOW_CASE = ELECTIVE_COURSE_CASE;
                 frame.setTitle(sysTitle+" - "+ELECTIVE_COURSE_TITLE);
+
+                if (!insertElectiveCourseBtn) {
+                    insertElectiveCourseBtn = checkInsertElectiveCourseComboBox();
+                }
             }
         }
     }
 
     // 确定按钮监听器
-    private static class confirmBtn1Listener implements ActionListener {
+    private static class queryInfoConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String studentId = studentIdTextField_query.getText();
 
             int count = 0;
-            String classroom = null;
+            String classroom;
             String courseName = null;
             String teacherName = null;
 
@@ -700,10 +738,13 @@ public class QuerySystemGui {
                 }
             }
             queryInfoTable.setModel(new DefaultTableModel(queryInfoRowData, queryColumnName));
+
+            studentIdTextField_query.setText("");
+            studentIdTextField_query.requestFocus();
         }
     }
 
-    private static class confirmBtn2Listener implements ActionListener {
+    private static class insertStudentConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // 检查输入值
@@ -740,10 +781,19 @@ public class QuerySystemGui {
             line.add(major);
             studentRowData.add(line);
             studentTable.setModel(new DefaultTableModel(studentRowData, studentColumnName));
+
+            // 重置信息
+            studentIdTextField_insert.setText("");
+            studentNameTextField.setText("");
+
+            studentIdTextField_insert.requestFocus();
+
+            // 刷新下拉选单
+            studentIdComboBox.addItem(studentId);
         }
     }
 
-    private static class confirmBtn3Listener implements ActionListener {
+    private static class insertTeacherConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             int teacherAge = Integer.parseInt(teacherAgeTextField.getText());
@@ -777,10 +827,18 @@ public class QuerySystemGui {
             line.add(title);
             teacherRowData.add(line);
             teacherTable.setModel(new DefaultTableModel(teacherRowData, teacherColumnName));
+
+            teacherIdTextField.setText("");
+            teacherNameTextField.setText("");
+            teacherAgeTextField.setText("");
+
+            teacherIdTextField.requestFocus();
+
+            teacherIdComboBox.addItem(teacherId);
         }
     }
 
-    private static class confirmBtn4Listener implements ActionListener {
+    private static class insertCourseConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String courseId = courseIdTextField.getText();
@@ -801,10 +859,18 @@ public class QuerySystemGui {
             line.add(courseHour);
             courseRowData.add(line);
             courseTable.setModel(new DefaultTableModel(courseRowData, courseColumnName));
+
+            courseIdTextField.setText("");
+            courseNameTextField.setText("");
+            courseHourTextField.setText(" ");
+
+            courseIdTextField.requestFocus();
+
+            courseIdComboBox.addItem(courseId);
         }
     }
 
-    private static class confirmBtn5Listener implements ActionListener {
+    private static class insertScheduleConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String classId = classIdTextField.getText();
@@ -827,10 +893,18 @@ public class QuerySystemGui {
             line.add(classRoom);
             scheduleRowData.add(line);
             scheduleTable.setModel(new DefaultTableModel(scheduleRowData, scheduleColumnName));
+
+            classIdTextField.setText("");
+            courseIdComboBox.setSelectedIndex(0);
+            classRoomTextField.setText("");
+
+            classIdTextField.requestFocus();
+
+            classIdComboBox.addItem(classId);
         }
     }
 
-    private static class confirmBtn6Listener implements ActionListener {
+    private static class insertElectiveCourseConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String electiveCourseId = electiveCourseIdTextField.getText();
@@ -851,11 +925,16 @@ public class QuerySystemGui {
             line.add(classId);
             electiveCourseRowData.add(line);
             electiveCourseTable.setModel(new DefaultTableModel(electiveCourseRowData, electiveCourseColumnName));
+
+            electiveCourseIdTextField.setText("");
+            classIdComboBox.setSelectedIndex(0);
+
+            electiveCourseIdTextField.requestFocus();
         }
     }
 
     // 重置按钮监听器
-    private static class resetBtn1Listener implements ActionListener {
+    private static class queryInfoResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // 清除输入学号文本框并选中文本框
@@ -864,7 +943,7 @@ public class QuerySystemGui {
         }
     }
 
-    private static class resetBtn2Listener implements ActionListener {
+    private static class insertStudentResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             studentIdTextField_insert.setText("");
@@ -877,7 +956,7 @@ public class QuerySystemGui {
         }
     }
 
-    private static class resetBtn3Listener implements ActionListener {
+    private static class insertTeacherResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             teacherIdTextField.setText("");
@@ -890,7 +969,7 @@ public class QuerySystemGui {
         }
     }
 
-    private static class resetBtn4Listener implements ActionListener {
+    private static class insertCourseResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             courseIdTextField.setText("");
@@ -901,7 +980,7 @@ public class QuerySystemGui {
         }
     }
 
-    private static class resetBtn5Listener implements ActionListener {
+    private static class insertScheduleResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             classIdTextField.setText("");
@@ -913,7 +992,7 @@ public class QuerySystemGui {
         }
     }
 
-    private static class resetBtn6Listener implements ActionListener {
+    private static class insertElectiveCourseResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             electiveCourseIdTextField.setText("");
@@ -928,5 +1007,77 @@ public class QuerySystemGui {
     private static boolean checkAge(int age) {
         // 当输入的年龄大于120或小于0时，输入数据无效
         return (age < 0 || age > 120);
+    }
+
+    // 获取下拉选单
+    private static void getComboBox() {
+        // 遍历信息添加到ArrayList中
+        for (Course course : courses) {
+            if (course != null)
+                courseIdList.add(course.getCid());
+            else break;
+        }
+        for (Teacher teacher : teachers) {
+            if (teacher != null)
+                teacherIdList.add(teacher.getTid());
+            else break;
+        }
+        for (Student student : students) {
+            if (student != null)
+                studentIdList.add(student.getSid());
+            else break;
+        }
+        for (Schedule schedule : schedules) {
+            if (schedule != null)
+                classIdList.add(schedule.getClassid());
+            else break;
+        }
+
+        // 对信息进行排序
+        Collections.sort(courseIdList);
+        Collections.sort(teacherIdList);
+        Collections.sort(studentIdList);
+        Collections.sort(classIdList);
+
+        // 将排序后的信息添加到下拉选单中
+        for (String courseid : courseIdList) {
+            courseIdComboBox.addItem(courseid);
+        }
+        for (String teacherid : teacherIdList) {
+            teacherIdComboBox.addItem(teacherid);
+        }
+        for (String studentid : studentIdList) {
+            studentIdComboBox.addItem(studentid);
+        }
+        for (String classid : classIdList) {
+            classIdComboBox.addItem(classid);
+        }
+    }
+
+    // 下拉菜单检验
+    private static boolean checkInsertElectiveCourseComboBox() {
+        if (studentIdComboBox.getSelectedItem() == null || classIdComboBox.getSelectedItem() == null) {
+            insertElectiveCourseConfirm.setVisible(false);
+            insertElectiveCourseReset.setVisible(false);
+            return false;
+        }
+        else {
+            insertElectiveCourseConfirm.setVisible(true);
+            insertElectiveCourseReset.setVisible(true);
+            return true;
+        }
+    }
+
+    private static boolean checkInsertScheduleComboBox() {
+        if (courseIdComboBox.getSelectedItem() == null || teacherIdComboBox.getSelectedItem() == null) {
+            insertScheduleConfirm.setVisible(false);
+            insertScheduleReset.setVisible(false);
+            return false;
+        }
+        else {
+            insertScheduleConfirm.setVisible(true);
+            insertScheduleReset.setVisible(true);
+            return true;
+        }
     }
 }
