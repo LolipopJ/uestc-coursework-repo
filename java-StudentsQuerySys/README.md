@@ -13,9 +13,17 @@
 
 5. 编程实现分别输入5条记录的教师、学生、课程、排课、选课等信息，并利用文件类的方法，写入文件中；利用编写的readfile()方法，将文件的信息分别读入对象数组中。编写程序任意输入学生的学号，查询显示该学生所选课程的名称、教师、上课地点。
    - 终端界面[QuerySystem](./QuerySystem.java)
-   - ~~图形界面[QuerySystemGui](./QuerySystemGui.java)~~（暂未实现）
+   - 图形界面[QuerySystemGui](./QuerySystemGui.java)
 
 ### 更新日志
+
+#### 2019/12/16
+
+- 现在QuerySystemGui界面的表格内容默认居中显示。
+
+#### 2019/12/15
+
+- 基本实现了QuerySystemGui界面设计。
 
 #### 2019/12/14
 
