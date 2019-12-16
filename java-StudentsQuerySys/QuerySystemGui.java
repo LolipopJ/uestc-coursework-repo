@@ -1,11 +1,10 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.PlainDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
@@ -19,7 +18,7 @@ public class QuerySystemGui {
     private static Myfile file = new Myfile(System.getProperty("user.dir"));
 
     // 设置最大存储数MAXSIZE
-    final private static int MAXSIZE = file.setMAXSIZE(50);
+    final private static int MAXSIZE = file.setMAXSIZE(100);
 
     // 状态值
     private static int NOW_CASE;
@@ -54,6 +53,8 @@ public class QuerySystemGui {
     final private static String ELECTIVE_COURSE_ID = "选课号";
     final private static String MALE = "男";
     final private static String FEMALE = "女";
+    final private static String DIALOG_EMPTY = "信息不能为空，请检查！";
+    final private static String DIALOG_WRONG_INPUT = "输入有误，请检查！";
 
     // 初始化对象数组
     private static Student[] students = new Student[MAXSIZE];
@@ -63,7 +64,7 @@ public class QuerySystemGui {
     private static Electivecourse[] electiveCourses = new Electivecourse[MAXSIZE];
 
     // JFrame框架
-    private static JFrame frame = new JFrame(sysTitle);
+    private static JFrame frame;
 
     // 主面板，采用边框布局
     private static JPanel mainPanel = new JPanel(new BorderLayout(5,0));
@@ -192,17 +193,25 @@ public class QuerySystemGui {
     private static JLabel dialogLable = new JLabel();
     private static JButton dialogButton = new JButton("确认");
 
-    // 主函数
+    /*
+     * Main函数
+     */
     public static void main (String[] args) throws IOException, ClassNotFoundException {
         new QuerySystemGui();
     }
 
+    /*
+     * 初始化框架
+     * @description 调用函数初始化JFrame框架
+     */
     private QuerySystemGui() throws IOException, ClassNotFoundException {
         // 设置框架属性
+        frame = new JFrame(sysTitle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(new Dimension(800, 400));
         frame.setMinimumSize(new Dimension(800, 400));
         frame.setLocationRelativeTo(null);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        // frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         // 文件数据初始化
         readFile();
@@ -231,7 +240,10 @@ public class QuerySystemGui {
         frame.setVisible(true);
     }
 
-    // 从文件中读取数据
+    /*
+     * 读取文件
+     * @description 反序列化读取文件，将获取的内容存储到对象数组中
+     */
     private static void readFile() throws IOException, ClassNotFoundException {
         file.readFile(students);
         file.readFile(teachers);
@@ -240,9 +252,11 @@ public class QuerySystemGui {
         file.readFile(electiveCourses);
     }
 
-    // 初始化选项面板
+    /*
+     * 初始化选项面板
+     */
     private static void initOptionPanel() {
-        // 选项面板按钮监听
+        // 监听选项面板按钮
         queryInfoBtn.addActionListener(new queryInfoBtnListener());
         studentBtn.addActionListener(new studentBtnListener());
         teacherBtn.addActionListener(new teacherBtnListener());
@@ -250,7 +264,7 @@ public class QuerySystemGui {
         scheduleBtn.addActionListener(new scheduleBtnListener());
         electiveCourseBtn.addActionListener(new electiveCourseBtnListener());
 
-        // 选项面板初始化
+        // 初始化选项面板
         optionPanel.add(queryInfoBtn);
         optionPanel.add(studentBtn);
         optionPanel.add(teacherBtn);
@@ -259,9 +273,11 @@ public class QuerySystemGui {
         optionPanel.add(electiveCourseBtn);
     }
 
-    // 初始化输入面板
+    /*
+     * 初始化输入面板
+     */
     private static void initInputPanel() {
-        // 设置输入面板属性
+        // 设置输入面板大小
         Dimension inputPanelDimension = new Dimension(180, 0);
         queryInfoInputPanel.setPreferredSize(inputPanelDimension);
         insertStudentPanel.setPreferredSize(inputPanelDimension);
@@ -270,7 +286,7 @@ public class QuerySystemGui {
         insertSchedulePanel.setPreferredSize(inputPanelDimension);
         insertElectiveCoursePanel.setPreferredSize(inputPanelDimension);
 
-        // 设置输入面板内容物属性
+        // 设置输入面板下拉选单大小
         Dimension comboBoxDimension = new Dimension(110, 20);
         studentSexComboBox.setPreferredSize(comboBoxDimension);
         teacherSexComboBox.setPreferredSize(comboBoxDimension);
@@ -279,7 +295,7 @@ public class QuerySystemGui {
         studentIdComboBox.setPreferredSize(comboBoxDimension);
         classIdComboBox.setPreferredSize(comboBoxDimension);
 
-        // 输入面板按钮监听
+        // 监听输入面板按钮
         queryInfoConfirm.addActionListener(new queryInfoConfirmListener());
         insertStudentConfirm.addActionListener(new insertStudentConfirmListener());
         insertTeacherConfirm.addActionListener(new insertTeacherConfirmListener());
@@ -304,6 +320,11 @@ public class QuerySystemGui {
         // 如果排课信息或选课信息下拉选单不存在数据则隐藏其按钮
         insertScheduleBtn = checkInsertScheduleComboBox();
         insertElectiveCourseBtn = checkInsertElectiveCourseComboBox();
+
+        // 年龄、课时信息只允许输入数字
+        studentAgeTextField.setDocument(new integerTextField());
+        teacherAgeTextField.setDocument(new integerTextField());
+        courseHourTextField.setDocument(new integerTextField());
 
         // 初始化查询界面输入面板
         queryInfoInputPanel.add(studentIdLable_query);
@@ -372,7 +393,9 @@ public class QuerySystemGui {
         insertElectiveCoursePanel.add(insertElectiveCourseReset);
     }
 
-    // 初始化表格
+    /*
+     * 初始化表格面板
+     */
     private static void initTablePanel() {
         // 初始化表格列标题
         queryColumnName.add(ID);
@@ -413,7 +436,7 @@ public class QuerySystemGui {
         scheduleRowData = getRowData(schedules);
         electiveCourseRowData = getRowData(electiveCourses);
 
-        // 初始化表格内容
+        // 初始化表格值
         queryInfoTable = new JTable(queryInfoRowData, queryColumnName);
         studentTable = new JTable(studentRowData, studentColumnName);
         teacherTable = new JTable(teacherRowData, teacherColumnName);
@@ -421,9 +444,36 @@ public class QuerySystemGui {
         scheduleTable = new JTable(scheduleRowData, scheduleColumnName);
         electiveCourseTable = new JTable(electiveCourseRowData, electiveCourseColumnName);
 
-        // 设置表格默认样式
+        // 设置表格表头格式
+        // 表头字体
+        Font tableHeaderFont = new Font("SimHei", Font.BOLD, 16);
+        queryInfoTable.getTableHeader().setFont(tableHeaderFont);
+        studentTable.getTableHeader().setFont(tableHeaderFont);
+        teacherTable.getTableHeader().setFont(tableHeaderFont);
+        courseTable.getTableHeader().setFont(tableHeaderFont);
+        scheduleTable.getTableHeader().setFont(tableHeaderFont);
+        electiveCourseTable.getTableHeader().setFont(tableHeaderFont);
+
+        // 设置表格内容格式
+        // 内容字体
+        Font rowDataFont = new Font("SimHei", Font.PLAIN, 14);
+        queryInfoTable.setFont(rowDataFont);
+        studentTable.setFont(rowDataFont);
+        teacherTable.setFont(rowDataFont);
+        courseTable.setFont(rowDataFont);
+        scheduleTable.setFont(rowDataFont);
+        electiveCourseTable.setFont(rowDataFont);
+
+        // 内容行高
+        queryInfoTable.setRowHeight(22);
+        studentTable.setRowHeight(22);
+        teacherTable.setRowHeight(22);
+        courseTable.setRowHeight(22);
+        scheduleTable.setRowHeight(22);
+        electiveCourseTable.setRowHeight(22);
+
+        // 内容居中
         DefaultTableCellRenderer cr = new DefaultTableCellRenderer();
-        // 表格内容居中
         cr.setHorizontalAlignment(JLabel.CENTER);
         queryInfoTable.setDefaultRenderer(Object.class, cr);
         studentTable.setDefaultRenderer(Object.class, cr);
@@ -432,22 +482,25 @@ public class QuerySystemGui {
         scheduleTable.setDefaultRenderer(Object.class, cr);
         electiveCourseTable.setDefaultRenderer(Object.class, cr);
 
-        // 初始化表格面板
-        queryInfoPanel.add(queryInfoTable.getTableHeader(), BorderLayout.NORTH);
+        // 初始化表格面板并添加滚动条
         queryInfoPanel.add(queryInfoTable, BorderLayout.CENTER);
-        studentPanel.add(studentTable.getTableHeader(), BorderLayout.NORTH);
+        queryInfoPanel.add(new JScrollPane(queryInfoTable));
         studentPanel.add(studentTable, BorderLayout.CENTER);
-        teacherPanel.add(teacherTable.getTableHeader(), BorderLayout.NORTH);
+        studentPanel.add(new JScrollPane(studentTable));
         teacherPanel.add(teacherTable, BorderLayout.CENTER);
-        coursePanel.add(courseTable.getTableHeader(), BorderLayout.NORTH);
+        teacherPanel.add(new JScrollPane(teacherTable));
         coursePanel.add(courseTable, BorderLayout.CENTER);
-        schedulePanel.add(scheduleTable.getTableHeader(), BorderLayout.NORTH);
+        coursePanel.add(new JScrollPane(courseTable));
         schedulePanel.add(scheduleTable, BorderLayout.CENTER);
-        electiveCoursePanel.add(electiveCourseTable.getTableHeader(), BorderLayout.NORTH);
+        schedulePanel.add(new JScrollPane(scheduleTable));
         electiveCoursePanel.add(electiveCourseTable, BorderLayout.CENTER);
+        electiveCoursePanel.add(new JScrollPane(electiveCourseTable));
     }
 
-    // 从文件中获取表格信息
+    /*
+     * 获取表格信息
+     * @description 读取文件中获取的对象数组的内容并返回存放表格数据的对象数组
+     */
     private static Vector<Vector<java.io.Serializable>> getRowData() {
         // 返回未存放数据的Vector
         return new Vector<>();
@@ -548,7 +601,10 @@ public class QuerySystemGui {
         return rowData;
     }
 
-    // 初始化提示信息窗口
+    /*
+     * 初始化提示信息窗口
+     * @description 生成一个具有提示信息的新窗口
+     */
     private static void initDialogPanel() {
         dialog.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -565,7 +621,10 @@ public class QuerySystemGui {
         dialog.add(dialogButton);
     }
 
-    // 显示带有指定内容的提示信息窗口
+    /*
+     * 显示提示信息窗口
+     * @description 修改提示信息并使提示窗口可见
+     */
     private static void dialog(String words) {
         dialog.setSize(new Dimension(200, 100));
         dialog.setLocationRelativeTo(null);
@@ -574,7 +633,10 @@ public class QuerySystemGui {
         dialog.setVisible(true);
     }
 
-    // 选项按钮监听器
+    /*
+     * 选项按钮监听器
+     * @description 点击时切换工作面板
+     */
     private static class queryInfoBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -686,12 +748,22 @@ public class QuerySystemGui {
         }
     }
 
-    // 确定按钮监听器
+    /*
+     * 输入面板确定按钮监听器
+     * @description 点击时检索信息或将数据写入文件，并刷新表单
+     */
     private static class queryInfoConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String studentId = studentIdTextField_query.getText();
 
+            // 检查输入是否为空
+            if (studentId.equals("")) {
+                dialog(STUDENT_ID+DIALOG_EMPTY);
+                return;
+            }
+
+            boolean hasElectiveCourse = false;
             int count = 0;
             String classroom;
             String courseName = null;
@@ -732,36 +804,58 @@ public class QuerySystemGui {
                             line.add(teacherName);
                             line.add(classroom);
                             queryInfoRowData.add(line);
+
+                            // 设置布尔值为真
+                            hasElectiveCourse = true;
                             break;
                         }
                     }
                 }
             }
-            queryInfoTable.setModel(new DefaultTableModel(queryInfoRowData, queryColumnName));
 
-            studentIdTextField_query.setText("");
+            // 如果为查询到信息，则显示dialog
+            if (!hasElectiveCourse) {
+                dialog("未查询到"+studentId+"的选课信息");
+            }
+            else queryInfoTable.setModel(new DefaultTableModel(queryInfoRowData, queryColumnName));
+
+            // 修改框架名
+            frame.setTitle(sysTitle+" - "+QUERY_INFO_TITLE+" - "+studentId);
+
+            // 点击查询按钮后选中输入的学号
             studentIdTextField_query.requestFocus();
+            studentIdTextField_query.selectAll();
         }
     }
 
     private static class insertStudentConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // 检查输入值
-            int studentAge = Integer.parseInt(studentAgeTextField.getText());
-            if (checkAge(studentAge)) {
-                dialog("学生年龄输入有误，请检查！");
-                return;
-            }
-            String studentSex = Objects.requireNonNull(studentSexComboBox.getSelectedItem()).toString();
-            if (studentSex == null) {
-                dialog("学生性别不能为空，请检查！");
+            if (studentAgeTextField.getText().equals("")) {
+                dialog(DIALOG_EMPTY);
                 return;
             }
 
+            int studentAge = Integer.parseInt(studentAgeTextField.getText());
+
+            // 检查输入值
+            if (checkAge(studentAge)) {
+                dialog("学生"+AGE+DIALOG_WRONG_INPUT);
+                studentAgeTextField.requestFocus();
+                studentAgeTextField.selectAll();
+                return;
+            }
+
+            String studentSex = Objects.requireNonNull(studentSexComboBox.getSelectedItem()).toString();
             String studentId = studentIdTextField_insert.getText();
             String studentName = studentNameTextField.getText();
             String major = majorTextField.getText();
+
+            if (studentSex.equals("") || studentId.equals("")
+                    || studentName.equals("") || major.equals("")) {
+                dialog(DIALOG_EMPTY);
+                return;
+            }
 
             // 将输入内容写入文件并重新读取文件到对象数组students中
             try {
@@ -796,20 +890,29 @@ public class QuerySystemGui {
     private static class insertTeacherConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int teacherAge = Integer.parseInt(teacherAgeTextField.getText());
-            if (checkAge(teacherAge)) {
-                dialog("教师年龄输入有误，请检查！");
-                return;
-            }
-            String teacherSex = Objects.requireNonNull(teacherSexComboBox.getSelectedItem()).toString();
-            if (teacherSex == null) {
-                dialog("教师性别不能为空，请检查！");
+            if (teacherAgeTextField.getText().equals("")) {
+                dialog(DIALOG_EMPTY);
                 return;
             }
 
+            int teacherAge = Integer.parseInt(teacherAgeTextField.getText());
+
+            if (checkAge(teacherAge)) {
+                dialog("教师"+AGE+DIALOG_WRONG_INPUT);
+                teacherAgeTextField.requestFocus();
+                teacherAgeTextField.selectAll();
+                return;
+            }
+
+            String teacherSex = Objects.requireNonNull(teacherSexComboBox.getSelectedItem()).toString();
             String teacherId = teacherIdTextField.getText();
             String teacherName = teacherNameTextField.getText();
             String title = titleTextField.getText();
+
+            if (teacherSex.equals("") || teacherId.equals("") || teacherName.equals("") || title.equals("")) {
+                dialog(DIALOG_EMPTY);
+                return;
+            }
 
             try {
                 file.writeFile(new Teacher(teacherName, teacherSex, teacherAge, teacherId, title));
@@ -841,9 +944,27 @@ public class QuerySystemGui {
     private static class insertCourseConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (courseHourTextField.getText().equals("")) {
+                dialog(DIALOG_EMPTY);
+                return;
+            }
+
+            int courseHour = Integer.parseInt(courseHourTextField.getText());
+
+            if (checkCourseHour(courseHour)) {
+                dialog(COURSE_HOUR+DIALOG_WRONG_INPUT);
+                courseHourTextField.requestFocus();
+                courseHourTextField.selectAll();
+                return;
+            }
+
             String courseId = courseIdTextField.getText();
             String courseName = courseNameTextField.getText();
-            int courseHour = Integer.parseInt(courseHourTextField.getText());
+
+            if (courseId.equals("") || courseName.equals("")) {
+                dialog(DIALOG_EMPTY);
+                return;
+            }
 
             try {
                 file.writeFile(new Course(courseName, courseId, courseHour));
@@ -878,6 +999,11 @@ public class QuerySystemGui {
             String teacherId = Objects.requireNonNull(teacherIdComboBox.getSelectedItem()).toString();
             String classRoom = classRoomTextField.getText();
 
+            if (classId.equals("") || courseId.equals("") || teacherId.equals("") || classRoom.equals("")) {
+                dialog(DIALOG_EMPTY);
+                return;
+            }
+
             try {
                 file.writeFile(new Schedule(classId, courseId, teacherId, classRoom));
                 file.readFile(schedules);
@@ -911,6 +1037,11 @@ public class QuerySystemGui {
             String studentId = Objects.requireNonNull(studentIdComboBox.getSelectedItem()).toString();
             String classId = Objects.requireNonNull(classIdComboBox.getSelectedItem()).toString();
 
+            if (electiveCourseId.equals("") || studentId.equals("") || classId.equals("")) {
+                dialog(DIALOG_EMPTY);
+                return;
+            }
+
             try {
                 file.writeFile(new Electivecourse(classId, electiveCourseId, studentId));
                 file.readFile(electiveCourses);
@@ -933,7 +1064,10 @@ public class QuerySystemGui {
         }
     }
 
-    // 重置按钮监听器
+    /*
+     * 输入面板重置按钮监听器
+     * @description 点击时将输入面板清零
+     */
     private static class queryInfoResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -1003,13 +1137,50 @@ public class QuerySystemGui {
         }
     }
 
-    // 输入检验
+    /*
+     * 数字输入检验
+     * @description 限制年龄、课时输入只能输入数字
+     */
+    private static class integerTextField extends PlainDocument {
+        public integerTextField() {
+            super();
+        }
+
+        public void insertString(int offset, String str, AttributeSet attr) throws javax.swing.text.BadLocationException {
+            if (str == null) {
+                return;
+            }
+
+            char[] s = str.toCharArray();
+            int length = 0;
+            // 过滤非数字
+            for (int i = 0; i < s.length; i++) {
+                if ((s[i] >= '0') && (s[i] <= '9')) {
+                    s[length++] = s[i];
+                }
+                super.insertString(offset, new String(s, 0, length), attr);
+            }
+        }
+    }
+
+    /*
+     * 数据输入检验
+     * @description 检验输入的年龄、课时数据是否合理
+     */
     private static boolean checkAge(int age) {
         // 当输入的年龄大于120或小于0时，输入数据无效
         return (age < 0 || age > 120);
     }
 
-    // 获取下拉选单
+    private static boolean checkCourseHour(int courseHour) {
+        // 当输入的课时大于240或小于0时，输入数据无效
+        return (courseHour < 0 || courseHour > 240);
+    }
+
+    /*
+     * 获取输入面板下拉选单
+     * @description 将文件读取到的信息添加到下拉选单中
+     */
     private static void getComboBox() {
         // 遍历信息添加到ArrayList中
         for (Course course : courses) {
@@ -1054,7 +1225,10 @@ public class QuerySystemGui {
         }
     }
 
-    // 下拉菜单检验
+    /*
+     * 检验输入面板下拉选单
+     * @description 如果不存在则设置对应面板按钮不可见
+     */
     private static boolean checkInsertElectiveCourseComboBox() {
         if (studentIdComboBox.getSelectedItem() == null || classIdComboBox.getSelectedItem() == null) {
             insertElectiveCourseConfirm.setVisible(false);
