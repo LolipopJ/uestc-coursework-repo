@@ -46,3 +46,4 @@
 - 优化QuerySystemGui代码结构，实现JTable、JTextField等GUI界面元素的复用
 - 优化QuerySystemGui逻辑结构，减少文件与变量的读写操作，提升性能
 - 美化QuerySystemGui界面
+- 实现QuerySystemGui输入面板输入数据后逻辑自增，增加操作效率
