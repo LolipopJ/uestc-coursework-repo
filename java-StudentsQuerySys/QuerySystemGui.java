@@ -763,6 +763,7 @@ public class QuerySystemGui {
                 return;
             }
 
+            queryInfoRowData = new Vector<>();
             boolean hasElectiveCourse = false;
             int count = 0;
             String classroom;
@@ -813,18 +814,19 @@ public class QuerySystemGui {
                 }
             }
 
-            // 如果为查询到信息，则显示dialog
-            if (!hasElectiveCourse) {
-                dialog("未查询到"+studentId+"的选课信息");
+            if (hasElectiveCourse) {
+                // 刷新表格
+                queryInfoTable.setModel(new DefaultTableModel(queryInfoRowData, queryColumnName));
+
+                // 修改框架名
+                frame.setTitle(sysTitle+" - "+QUERY_INFO_TITLE+" - "+studentId);
+
+                // 点击查询按钮后选中输入的学号
+                studentIdTextField_query.requestFocus();
+                studentIdTextField_query.selectAll();
             }
-            else queryInfoTable.setModel(new DefaultTableModel(queryInfoRowData, queryColumnName));
-
-            // 修改框架名
-            frame.setTitle(sysTitle+" - "+QUERY_INFO_TITLE+" - "+studentId);
-
-            // 点击查询按钮后选中输入的学号
-            studentIdTextField_query.requestFocus();
-            studentIdTextField_query.selectAll();
+            // 如果未查询到信息，则显示dialog
+            else dialog("未查询到"+studentId+"的选课信息");
         }
     }
 
@@ -1021,7 +1023,7 @@ public class QuerySystemGui {
             scheduleTable.setModel(new DefaultTableModel(scheduleRowData, scheduleColumnName));
 
             classIdTextField.setText("");
-            courseIdComboBox.setSelectedIndex(0);
+            teacherIdComboBox.setSelectedIndex(0);
             classRoomTextField.setText("");
 
             classIdTextField.requestFocus();
