@@ -39,3 +39,10 @@
 #### 2019/12/12
 
 - 修复了当Myfile写入文件时，若目标文件存在但没有存储数据时发生异常的bug
+
+### 亟待完成
+
+- 重写Myfile中的对象数组相关内容，用ArrayList<>替代
+- 优化QuerySystemGui代码结构，实现JTable、JTextField等GUI界面元素的复用
+- 优化QuerySystemGui逻辑结构，减少文件与变量的读写操作，提升性能
+- 美化QuerySystemGui界面
