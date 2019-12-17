@@ -48,4 +48,4 @@
 
 - 基于**Java**，[Triangle](./java-SoftwareEngineering/Triangle.java)通过输入边的长度判断三角形的类型，[Grade](./java-SoftwareEngineering/Grade.java)通过输入学生分数计算相关内容。
 
-- 基于**Android 9**，人力资源管理系统，实现人事信息管理和考勤管理两个功能。[HrManagerSys](./java-SoftwareEngineering/HrManagerSys)
+- 基于**Android 10**，人力资源管理系统，实现人事信息管理和考勤管理两个功能。[HrManagerSys](./java-SoftwareEngineering/HrManagerSys)
