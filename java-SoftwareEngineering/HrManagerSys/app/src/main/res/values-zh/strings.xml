@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HrManagerSys</string>
+    <string name="action_sign_in">登陆</string>
+    <string name="action_sign_in_short">登陆</string>
+    <string name="invalid_password">密码至少包含6个字符</string>
+    <string name="invalid_username">用户名无效</string>
+    <string name="login_failed">登录失败，请检查用户名或密码</string>
+    <string name="prompt_password">密码</string>
+    <string name="prompt_username">用户名</string>
+    <string name="welcome">欢迎！</string>
+    <string name="edit_message">输入内容</string>
+    <string name="botton_send">确认</string>
+</resources>

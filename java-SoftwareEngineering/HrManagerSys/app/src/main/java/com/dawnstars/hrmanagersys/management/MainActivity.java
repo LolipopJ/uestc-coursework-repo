@@ -1,4 +1,4 @@
-package com.dawnstars.hrmanagersys;
+package com.dawnstars.hrmanagersys.management;
 
 import androidx.appcompat.app.AppCompatActivity;
 
