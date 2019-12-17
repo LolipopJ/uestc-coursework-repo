@@ -15,9 +15,9 @@
    - 终端界面[QuerySystem](./QuerySystem.java)
    - 图形界面[QuerySystemGui](./QuerySystemGui.java)
 
-### 更新日志
+## 更新日志
 
-#### 2019/12/16
+2019/**12/16**
 
 - 实现了QuerySystemGui实验需求的查询功能
 - QuerySystemGui
@@ -27,20 +27,20 @@
   - 为代码增加了注释
   - 以及更多小更新
 
-#### 2019/12/15
+2019/**12/15**
 
 - 基本实现了QuerySystemGui界面设计
 
-#### 2019/12/14
+2019/**12/14**
 
 - 搭建了基础的QuerySystemGui界面，并实现了一些功能
 - 现在QuerySystem的默认存储数据文件路径为工作路径
 
-#### 2019/12/12
+2019/**12/12**
 
 - 修复了当Myfile写入文件时，若目标文件存在但没有存储数据时发生异常的bug
 
-### 亟待完成
+## 亟待完成
 
 - 重写Myfile中的对象数组相关内容，用ArrayList<>替代
 - 优化QuerySystemGui代码结构，实现JTable、JTextField等GUI界面元素的复用
