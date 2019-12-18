@@ -11,4 +11,14 @@
     <string name="login_failed">"Login failed. Check your username or password."</string>
     <string name="edit_message">Enter a message</string>
     <string name="botton_send">Send</string>
+    <string name="person_info_manage">Personnel Information Manage</string>
+    <string name="attend_info_manage">Attendance Information Manage</string>
+    <string name="staff_trial">Staff Trial</string>
+    <string name="staff_probation">Probation</string>
+    <string name="staff_dismiss">Staff Dismiss</string>
+    <string name="staff_retire">Staff Retire</string>
+    <string name="set_vacation">Vacation Setting</string>
+    <string name="set_attendance_project">Project Setting</string>
+    <string name="set_attendance_class">Class Setting</string>
+    <string name="set_attendance_person">Personal Setting</string>
 </resources>
