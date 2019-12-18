@@ -49,6 +49,7 @@
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
+            android:label="@string/title_login"
             android:parentActivityName=".management.MainActivity" />
     </application>
 

@@ -38,4 +38,5 @@
     <string name="text_projectTimeStart">开始时间</string>
     <string name="text_projectTimeEnd">结束时间</string>
     <string name="text_projectSetting">项目设置</string>
+    <string name="title_login">登入系统</string>
 </resources>

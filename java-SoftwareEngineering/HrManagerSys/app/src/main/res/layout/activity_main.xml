@@ -152,4 +152,19 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_attendance_setting" />
+
+    <ImageButton
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="loginActivity"
+        android:src="@drawable/baseline_perm_identity_black_36"
+        app:layout_constraintBottom_toBottomOf="@+id/mainTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mainTitle"
+        app:layout_constraintTop_toTopOf="@+id/mainTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,23 +33,23 @@ public class Attendance {
         this.attendanceInfo = new ArrayMap<>();
     }
 
-    private void setAttendanceProjectName(String name) {
+    public void setAttendanceProjectName(String name) {
         this.attendanceProjectName = name;
     }
 
-    private void setAttendanceDate(String date) {
+    public void setAttendanceDate(String date) {
         this.attendanceDate = date;
     }
 
-    private void setAttendanceTimeStart(String timeStart) {
+    public void setAttendanceTimeStart(String timeStart) {
         this.attendanceTimeStart = timeStart;
     }
 
-    private void setAttendanceTimeEnd(String timeEnd) {
+    public void setAttendanceTimeEnd(String timeEnd) {
         this.attendanceTimeEnd = timeEnd;
     }
 
-    private void setAttendanceInfo(int staffId) {
+    public void setAttendanceInfo(int staffId) {
         // 检验是否已经签到
         if (attendanceInfo.containsKey(staffId)) {
             // 提示已经签到成功
@@ -84,23 +84,23 @@ public class Attendance {
         attendanceInfo.put(staffId, nowTime);
     }
 
-    private String getAttendanceProjectName() {
+    public String getAttendanceProjectName() {
         return this.attendanceProjectName;
     }
 
-    private String getAttendanceDate() {
+    public String getAttendanceDate() {
         return this.attendanceDate;
     }
 
-    private String getAttendanceTimeStart() {
+    public String getAttendanceTimeStart() {
         return this.attendanceTimeStart;
     }
 
-    private String getAttendanceTimeEnd() {
+    public String getAttendanceTimeEnd() {
         return this.attendanceTimeEnd;
     }
 
-    private Map<Integer, String> getAttendanceInfo() {
+    public Map<Integer, String> getAttendanceInfo() {
         return this.attendanceInfo;
     }
 }
