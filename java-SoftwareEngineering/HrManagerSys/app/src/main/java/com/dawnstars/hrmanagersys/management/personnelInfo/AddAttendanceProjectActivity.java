@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.dawnstars.hrmanagersys.R;
-import com.dawnstars.hrmanagersys.data.model.Attendance;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -172,14 +171,8 @@ public class AddAttendanceProjectActivity extends Activity implements View.OnCli
         ad.show();
     }
 
-    // 将信息写入到文件中
     public void addAttendanceProject(View view) {
-        String projectName = textProjectName.getText().toString();
-        String date = textDate.getText().toString();
-        String timeStart = textTimeStart.getText().toString();
-        String timeEnd = textTimeEnd.getText().toString();
-
-        Attendance attendance = new Attendance(projectName, date, timeStart, timeEnd);
+        /* 将内容保存至数据库中 */
         finish();
     }
 
