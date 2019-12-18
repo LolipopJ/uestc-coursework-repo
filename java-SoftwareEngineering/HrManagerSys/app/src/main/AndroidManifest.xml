@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".management.personnelInfo.AddAttendanceProjectActivity"
+            android:parentActivityName=".management.personnelInfo.AttendanceProjectActivity" />
+        <activity
             android:name=".management.personnelInfo.VacationSettingActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
