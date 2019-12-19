@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.dawnstars.hrmanagersys.R;
+import com.dawnstars.hrmanagersys.data.model.Attendance;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class AddAttendanceProjectActivity extends Activity implements View.OnCli
     private TextView textTimeStart;
     private TextView textTimeEnd;
     private TextView textProjectName;
-    Calendar calendar= Calendar.getInstance(Locale.CHINA);
+    Calendar calendar = Calendar.getInstance(Locale.CHINA);
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -35,8 +37,8 @@ public class AddAttendanceProjectActivity extends Activity implements View.OnCli
         textProjectName = findViewById(R.id.editText_projectName);
 
         textDate.setText(calendar.get(Calendar.YEAR)+" - "+(calendar.get(Calendar.MONTH)+1)+" - "
-                +calendar.get(Calendar.DAY_OF_MONTH));
-        textTimeStart.setText("0 : 0");
+                +(calendar.get(Calendar.DAY_OF_MONTH)+1));
+        textTimeStart.setText("00 : 00");
         textTimeEnd.setText("23 : 59");
 
         textDate.setOnClickListener(this);
@@ -58,7 +60,9 @@ public class AddAttendanceProjectActivity extends Activity implements View.OnCli
                     dayOfMonthText = "0"+dayOfMonth;
                 } else dayOfMonthText = Integer.toString(dayOfMonth);
 
-                tv.setText(year+" - "+monthOfYearText+" - "+dayOfMonthText);
+                String selectedDate = year+" - "+monthOfYearText+" - "+dayOfMonthText;
+
+                tv.setText(selectedDate);
             }
         }
                 , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -90,7 +94,7 @@ public class AddAttendanceProjectActivity extends Activity implements View.OnCli
                         if(textTimeEnd.getText().toString().compareTo(selectedTimeText) < 0) {
                             showDialog("开始时间应该在结束时间之前");
                         }
-                        else tvStart.setText(hourOfDayText+" : "+minuteText);
+                        else tvStart.setText(selectedTimeText);
                     }
                 }
                 , calendar.get(Calendar.HOUR_OF_DAY)
@@ -157,12 +161,17 @@ public class AddAttendanceProjectActivity extends Activity implements View.OnCli
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("警告");
         builder.setMessage(words);
+
         builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // 返回resultCode为0
+                Intent intent = new Intent();
+                setResult(0, intent);
                 finish();
             }
         }).create();
+
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {}
@@ -172,7 +181,26 @@ public class AddAttendanceProjectActivity extends Activity implements View.OnCli
     }
 
     public void addAttendanceProject(View view) {
+        String projectName = textProjectName.getText().toString();
+        if (projectName.equals("")) {
+            showDialog("考勤项目名称不能为空！");
+            return;
+        }
+
+        String date = textDate.getText().toString();
+        String timeStart = textTimeStart.getText().toString();
+        String timeEnd = textTimeEnd.getText().toString();
+
         /* 将内容保存至数据库中 */
+        // Attendance attendance = new Attendance(projectName, date, timeStart, timeEnd);
+
+        // 设置返回值和返回resultCode为1
+        Intent intent = new Intent();
+        intent.putExtra("projectName", projectName);
+        intent.putExtra("date", date);
+        intent.putExtra("timeStart", timeStart);
+        intent.putExtra("timeEnd", timeEnd);
+        setResult(1, intent);
         finish();
     }
 
