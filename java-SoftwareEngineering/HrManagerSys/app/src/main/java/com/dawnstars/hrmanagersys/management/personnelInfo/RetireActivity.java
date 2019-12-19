@@ -1,15 +1,15 @@
-package com.dawnstars.hrmanagersys.management.attendanceInfo;
+package com.dawnstars.hrmanagersys.management.personnelInfo;
 
 import android.app.Activity;
 import android.os.Bundle;
 
 import com.dawnstars.hrmanagersys.R;
 
-public class TrialActivity extends Activity {
+public class RetireActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trial);
+        setContentView(R.layout.activity_retire);
     }
 }

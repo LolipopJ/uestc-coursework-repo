@@ -10,31 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".management.personnelInfo.AddAttendanceProjectActivity"
-            android:parentActivityName=".management.personnelInfo.AttendanceProjectActivity" />
+            android:name=".management.attendanceInfo.AddAttendanceProjectActivity"
+            android:parentActivityName=".management.attendanceInfo.AttendanceProjectActivity" />
         <activity
-            android:name=".management.personnelInfo.VacationSettingActivity"
+            android:name=".management.attendanceInfo.VacationSettingActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
-            android:name=".management.personnelInfo.AttendanceSettingActivity"
+            android:name=".management.attendanceInfo.AttendanceSettingActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
-            android:name=".management.personnelInfo.AttendanceProjectActivity"
+            android:name=".management.attendanceInfo.AttendanceProjectActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
-            android:name=".management.personnelInfo.AttendanceClassActivity"
+            android:name=".management.attendanceInfo.AttendanceClassActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
-            android:name=".management.attendanceInfo.DismissActivity"
+            android:name=".management.personnelInfo.DismissActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
-            android:name=".management.attendanceInfo.RetireActivity"
+            android:name=".management.personnelInfo.RetireActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
-            android:name=".management.attendanceInfo.ProbationActivity"
+            android:name=".management.personnelInfo.ProbationActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
-            android:name=".management.attendanceInfo.TrialActivity"
+            android:name=".management.personnelInfo.TrialActivity"
             android:parentActivityName=".management.MainActivity" />
         <activity
             android:name=".management.MainActivity"

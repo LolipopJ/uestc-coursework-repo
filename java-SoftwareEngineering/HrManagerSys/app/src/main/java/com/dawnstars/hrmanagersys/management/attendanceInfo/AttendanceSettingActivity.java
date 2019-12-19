@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.dawnstars.hrmanagersys.R;
 
-public class DismissActivity extends Activity {
+public class AttendanceSettingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dismiss);
+        setContentView(R.layout.activity_attendance_setting);
     }
 }

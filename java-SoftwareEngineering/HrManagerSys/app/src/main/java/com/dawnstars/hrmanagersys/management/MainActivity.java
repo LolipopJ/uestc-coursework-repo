@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.dawnstars.hrmanagersys.R;
-import com.dawnstars.hrmanagersys.management.attendanceInfo.*;
+import com.dawnstars.hrmanagersys.management.attendanceInfo.AttendanceClassActivity;
+import com.dawnstars.hrmanagersys.management.attendanceInfo.AttendanceProjectActivity;
+import com.dawnstars.hrmanagersys.management.attendanceInfo.AttendanceSettingActivity;
+import com.dawnstars.hrmanagersys.management.attendanceInfo.VacationSettingActivity;
 import com.dawnstars.hrmanagersys.management.personnelInfo.*;
 import com.dawnstars.hrmanagersys.ui.login.LoginActivity;
 

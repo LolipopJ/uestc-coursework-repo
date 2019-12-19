@@ -1,4 +1,4 @@
-package com.dawnstars.hrmanagersys.management.personnelInfo;
+package com.dawnstars.hrmanagersys.management.attendanceInfo;
 
 import android.app.Activity;
 import android.app.AlertDialog;

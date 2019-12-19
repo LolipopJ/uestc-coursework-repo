@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:contentDescription="@string/botton_add_attendance_project_info"
-    tools:context=".management.personnelInfo.AttendanceProjectActivity">
+    tools:context=".management.attendanceInfo.AttendanceProjectActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

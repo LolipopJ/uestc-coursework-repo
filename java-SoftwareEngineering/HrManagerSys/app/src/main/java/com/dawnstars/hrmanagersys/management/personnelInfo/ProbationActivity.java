@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.dawnstars.hrmanagersys.R;
 
-public class VacationSettingActivity extends Activity {
+public class ProbationActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vacation_setting);
+        setContentView(R.layout.activity_probation);
     }
 }

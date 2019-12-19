@@ -13,9 +13,9 @@
     <string name="botton_send">确认</string>
     <string name="person_info_manage">人事信息管理</string>
     <string name="attend_info_manage">考勤信息管理</string>
-    <string name="title_staff_trial">员工试用</string>
+    <string name="title_staff_trial">试用员工</string>
     <string name="title_staff_probation">员工转正</string>
-    <string name="title_staff_dismiss">员工解聘</string>
+    <string name="title_staff_dismiss">解聘员工</string>
     <string name="title_staff_retire">员工退休</string>
     <string name="title_vacation">假期设置</string>
     <string name="title_attendance_project">考勤项目</string>
@@ -27,10 +27,10 @@
     <string name="option_attendance_class">考勤班别</string>
     <string name="option_attendance_person">信息管理</string>
     <string name="option_attendance_project">考勤项目</string>
-    <string name="option_staff_dismiss">员工解聘</string>
+    <string name="option_staff_dismiss">解聘员工</string>
     <string name="option_staff_probation">员工转正</string>
     <string name="option_staff_retire">员工退休</string>
-    <string name="option_staff_trial">员工试用</string>
+    <string name="option_staff_trial">试用员工</string>
     <string name="option_vacation">假期设置</string>
     <string name="prompt_projectName">在此处输入项目名称</string>
     <string name="text_projectName">项目名称</string>
