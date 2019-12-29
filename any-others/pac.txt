@@ -2485,6 +2485,8 @@ var domains = {
   "t.me": 1,
   "w3schools.com": 1,
   "cn.torrentkitty.tv": 1,
+  "stackoverflow.com": 1,
+  "android.com": 1,
 };
 
 var proxy = "__PROXY__";
