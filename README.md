@@ -6,13 +6,13 @@
 
 **所有代码仅作参考，请勿直接 copy！**
 
-部分课程作业代码测试使用于[C-FREE5](http://www.programarts.com/cfree_ch/)（最后更新于 2010 年 7 月），与一直在维护更新的编译软件如 Visual Studio 相比存在很多不同之处，故直接在其他编译软件上运行很有可能发生编译无法通过的问题。请加以甄别使用。
+部分课程作业 **C/C++** 代码编译测试于 [C-FREE5](http://www.programarts.com/cfree_ch/)（最后更新于 2010 年 7 月），与一直在维护更新的编译软件如 Visual Studio 和最新的编写规范相比存在很多不同之处。故直接在其他编译软件上运行很有可能发生编译无法通过的问题，请加以甄别使用。
 
 ## 索引
 
 ### 商品管理系统
 
-基于 **C 语言** ，入门级的课业项目。[c-GoodsManageSys](./c-GoodsManageSys)
+基于 **C** 语言，入门级的课业项目。[c-GoodsManageSys](./c-GoodsManageSys)
 
 ### 二叉树
 
@@ -56,7 +56,7 @@
 
 ### 操作系统基础实验
 
-[c-OperatingSystemBasics](./c-OperatingSystemBasics) 基于 **c** 语言，运行于 Centos 7 环境，包括三个实验：
+[c-OperatingSystemBasics](./c-OperatingSystemBasics) 基于 **C** 语言，运行于 **Unix**(Centos 7) 环境，包括三个实验：
 
 - 哲学家就餐问题的实现。实现著名的哲学家就餐问题，且不能出现死锁。[philosopher](./c-OperatingSystemBasics/philosopher.c) 基于[此 CSDN 博客](https://blog.csdn.net/thelostlamb/article/details/80741319)提供的函数方法改造得来。
 
