@@ -15,7 +15,7 @@
 [商品管理系统](./c-GoodsManageSys)|**C**|入门级的课业项目。
 [二叉树](./cpp-BinaryTree)|**C++**|根据二叉树的特性完成的小测试 demo 。
 [学生信息管理系统](./cpp-StudentsManageSys)|**C++**|入门级的课业项目，运用上数据结构的知识。
-[结巴分词可视化程序](./python-jieba-WordsCloudMaker)|**Python**|运用上 [jieba 分词](./jieba)的简单可视化应用程序。
+[结巴分词可视化程序](./python-jieba-WordsCloudMaker)|**Python**|运用上 [jieba 分词](https://github.com/fxsjy/jieba)的简单可视化应用程序。
 [Python 编程课程作业](./python-Coursework)|**Python** |Python 学习的部分课程作业，仅作记录用。
 [Shell 编程课程实验](./shell-SimpleExperiment)|**shell**|运行于 Unix (Centos 7) 环境，入门级的 shell 编程实验项目。
 [Java 编程课程作业](./java-Coursework)|**Java**|Java 学习的课程作业，仅作记录用。[IntelliJ IDEA](https://www.jetbrains.com/idea/) 是最好的 Java 开发 IDE ！
