@@ -10,56 +10,19 @@
 
 ## 索引
 
-### 商品管理系统
-
-基于 **C** 语言，入门级的课业项目。[c-GoodsManageSys](./c-GoodsManageSys)
-
-### 二叉树
-
-基于 **C++** ，根据二叉树的特性完成的小测试 demo 。[cpp-BinaryTree-demo](./cpp-BinaryTree)
-
-### 学生信息管理系统
-
-基于 **C++** ，入门级的课业项目，运用上数据结构的知识。[cpp-StudentsManageSys](./cpp-StudentsManageSys)
-
-### 结巴分词可视化程序
-
-基于 **Python** ，运用上 [jieba 分词](./jieba) 的简单可视化应用程序。[python-jieba-WordsCloudMaker-ch-demo](./python-jieba-WordsCloudMaker)
-
-### Python 编程课程作业
-
-基于 **Python** ，Python 学习的部分课程作业，仅作记录用。[python-CourseWork](./python-Coursework)
-
-### Shell 编程课程实验
-
-基于 **Centos 7** ，入门级的 shell 编程实验项目。[shell-SimpleExperiment](./shell-SimpleExperiment)
-
-### Java 编程课程作业
-
-基于 **Java** ，Java 学习的课程作业，仅作记录用。**IDEA** 是最好的 Java 开发环境！[java-CourseWork](./java-Coursework)
-
-### 学生选课查询系统
-
-基于 **Java** ，面向对象设计简单的应用程序，实现给定学号查询指定学生的选课信息功能。[java-StudentsQuerySys](./java-StudentsQuerySys)
-
-### 软件工程基础实验
-
-[java-SoftwareEngineering](./java-SoftwareEngineering) 包括两个部分：
-
-- 基于 **Java** ，[Triangle](./java-SoftwareEngineering/Triangle.java) 通过输入边的长度判断三角形的类型，[Grade](./java-SoftwareEngineering/Grade.java) 通过输入学生分数计算相关内容。
-
-- 基于 **Android 10** ，人力资源管理系统，实现人事信息管理和考勤管理两个功能。[HrManagerSys](./java-SoftwareEngineering/HrManagerSys)
-
-### 一个再简单不过的 Web 服务器
-
-基于 **Python** ，一个极为简单的 Web 响应服务器，可以获取并返回服务器上的文件内容。[python-TCPServer](./python-TCPServer)
-
-### 操作系统基础实验
-
-[c-OperatingSystemBasics](./c-OperatingSystemBasics) 基于 **C** 语言，运行于 **Unix**(Centos 7) 环境，包括三个实验：
-
-- 哲学家就餐问题的实现。实现著名的哲学家就餐问题，且不能出现死锁。[philosopher](./c-OperatingSystemBasics/philosopher.c) 基于[此 CSDN 博客](https://blog.csdn.net/thelostlamb/article/details/80741319)提供的函数方法改造得来。
-
-- 生产者消费者问题实现。创建多个进程作为生产者，多个进程作为消费者，一个文件作为数据源，实现生产者消费者问题。[producer-consumer](./c-OperatingSystemBasics/producer-consumer.c)
-
-- 利用管道实现进程间通信。利用基于 IPC 机制的管道实现进程间的匿名通信。[pipe](./c-OperatingSystemBasics/pipe.c)
+项目名|开发语言|简介
+---|---|---
+[商品管理系统](./c-GoodsManageSys)|**C**|入门级的课业项目。
+[二叉树](./cpp-BinaryTree)|**C++**|根据二叉树的特性完成的小测试 demo 。
+[学生信息管理系统](./cpp-StudentsManageSys)|**C++**|入门级的课业项目，运用上数据结构的知识。
+[结巴分词可视化程序](./python-jieba-WordsCloudMaker)|**Python**|运用上 [jieba 分词](./jieba)的简单可视化应用程序。
+[Python 编程课程作业](./python-Coursework)|**Python** |Python 学习的部分课程作业，仅作记录用。
+[Shell 编程课程实验](./shell-SimpleExperiment)|**shell**|运行于 Unix (Centos 7) 环境，入门级的 shell 编程实验项目。
+[Java 编程课程作业](./java-Coursework)|**Java**|Java 学习的课程作业，仅作记录用。[IntelliJ IDEA](https://www.jetbrains.com/idea/) 是最好的 Java 开发 IDE ！
+[学生选课查询系统](./java-StudentsQuerySys)|**Java**|面向对象设计简单的应用程序，实现给定学号查询指定学生的选课信息功能。
+[软件工程基础实验](./java-SoftwareEngineering)|**Java**|[Triangle](./java-SoftwareEngineering/Triangle.java) 通过输入边的长度判断三角形的类型；[Grade](./java-SoftwareEngineering/Grade.java) 通过输入学生分数计算相关内容。
+[人力资源管理系统](./java-SoftwareEngineering/HrManagerSys)|**Android 10**|[软件工程基础实验]((./java-SoftwareEngineering))的一部分，实现人事信息管理和考勤管理两个功能。
+[一个简易 Web 服务器](./python-TCPServer)|**Python**|一个极为简单的 Web 响应服务器，可以获取并返回服务器上的文件内容。
+[哲学家就餐问题](./c-OperatingSystemBasics/philosopher.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，实现著名的哲学家就餐问题，且不能出现死锁。基于[此 CSDN 博客](https://blog.csdn.net/thelostlamb/article/details/80741319)提供的函数方法改造得来。
+[生产者消费者问题](./c-OperatingSystemBasics/producer-consumer.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，创建多个进程作为生产者，多个进程作为消费者，一个文件作为数据源，实现生产者消费者问题。
+[管道通信](./c-OperatingSystemBasics/pipe.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，利用管道实现进程间通信。利用基于 IPC 机制的管道实现进程间的匿名通信。
