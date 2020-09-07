@@ -21,7 +21,7 @@
 [Java 编程课程作业](./java-Coursework)|**Java**|面向对象程序设计 Java 课程作业。[IntelliJ IDEA](https://www.jetbrains.com/idea/) 是最好的 Java 开发 IDE ！
 [学生选课查询系统](./java-StudentsQuerySys)|**Java**|面向对象程序设计 Java 课程项目，实现给定学号查询指定学生的选课信息功能。
 [软件工程基础实验](./java-SoftwareEngineering)|**Java**|软件工程基础课程实验：[Triangle](./java-SoftwareEngineering/Triangle.java) 通过输入边的长度判断三角形的类型；[Grade](./java-SoftwareEngineering/Grade.java) 通过输入学生分数计算相关内容。
-[人力资源管理系统](./java-SoftwareEngineering/HrManagerSys)|**Android**|[软件工程基础课程实验]((./java-SoftwareEngineering))的一部分，实现人事信息管理和考勤管理两个功能。Android 版本为 10.
+[人力资源管理系统](./java-SoftwareEngineering/HrManagerSys)|**Android**|[软件工程基础课程实验](./java-SoftwareEngineering)的一部分，实现人事信息管理和考勤管理两个功能。Android 版本为 10.
 [一个简易 Web 服务器](./python-TCPServer)|**Python**|计算机网络基础课程作业，实现一个极为简单的 Web 响应服务器，可以获取并返回服务器上的文件内容。
 [哲学家就餐问题](./c-OperatingSystemBasics/philosopher.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，实现著名的哲学家就餐问题，且不能出现死锁。基于[此 CSDN 博客](https://blog.csdn.net/thelostlamb/article/details/80741319)提供的函数方法改造得来。
 [生产者消费者问题](./c-OperatingSystemBasics/producer-consumer.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，创建多个进程作为生产者，多个进程作为消费者，一个文件作为数据源，实现生产者消费者问题。
