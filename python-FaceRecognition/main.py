@@ -124,12 +124,12 @@ def detect_frame(img, img_name):
 
 
 # 加载图片数据集
-dataset = datasets.ImageFolder('./test/origin')
+dataset = datasets.ImageFolder('./testing/origin')
 dataset.idx_to_class = {i: c for c, i in dataset.class_to_idx.items()}
 loader = DataLoader(dataset, collate_fn=collate_fn, num_workers=workers)
 i = "1"
 for x, y in loader:
-    base_path = './test/result/{}'.format(dataset.idx_to_class[y])
+    base_path = './testing/result/{}'.format(dataset.idx_to_class[y])
     if not os.path.exists(base_path):
         i = "1"
         os.mkdir(base_path)
