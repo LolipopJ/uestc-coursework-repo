@@ -1,12 +1,30 @@
-# 代码参考 [facenet-pytorch库的简单使用](https://www.cnblogs.com/muyisun/p/13338098.html)
+# 代码主要参考 [facenet-pytorch库的简单使用](https://www.cnblogs.com/muyisun/p/13338098.html)
 import os
+import shutil
 
-from PIL import Image, ImageFont, ImageDraw
+from PIL import ImageFont, ImageDraw
 from facenet_pytorch import MTCNN, InceptionResnetV1
 import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets
 import pandas as pd
+
+
+# 删除目录下的所有文件夹，但保留目录下的文件
+def del_file_dir(filepath):
+    del_list = os.listdir(filepath)
+    for del_filepath in del_list:
+        full_del_filepath = os.path.join(filepath, del_filepath)
+        if os.path.isdir(full_del_filepath):
+            shutil.rmtree(full_del_filepath)
+
+
+# 初始化，删除已有测试结果
+del_file_dir('./database/aligned')
+del_file_dir('./testing/result')
+
+# PART.1
+# 根据已有人脸信息制作数据集
 
 
 def collate_fn(x):
@@ -87,7 +105,8 @@ print(pd.DataFrame(dists, columns=names, index=names))
 torch.save(embeddings, 'embeddings.pt')
 torch.save(names, 'names.pt')
 
-# 对新的照片进行人脸识别
+# PART.2
+# 对测试照片进行人脸识别
 # 设置 keep_all 为 True，即 mtcnn 返回所有检测到的人脸
 mtcnn = MTCNN(
     image_size=160,
@@ -106,24 +125,44 @@ names = torch.load('names.pt')
 
 # 提取图片中的所有人脸，基于 facenet 模型，根据数据集标注人脸识别结果到图片中
 def detect_frame(img, img_name):
+    # 设置边框和文字样式
     font_style = ImageFont.truetype("simhei.ttf", 12, encoding="utf-8")
     color_style = (0, 85, 255)
+    # 提取图片中所有的人脸
     faces = mtcnn(img)
     boxes, _ = mtcnn.detect(img)
+    print('Image {0} recognize {1} faces.'.format(img_name, len(boxes)))
+    # 新建一份 Image 进行画图处理
     frame_draw = img.copy()
     draw = ImageDraw.Draw(frame_draw)
-    print('Image {0} recognize {1} faces.'.format(img_name, len(boxes)))
     for i, box in enumerate(boxes):
         draw.rectangle(box.tolist(), outline=color_style)
         face_embedding = resnet(faces[i].unsqueeze(0).to(device))
+        # 计算欧式距离
         distance = [(face_embedding - embeddings[i]).norm().item() for i in range(embeddings.size()[0])]
+        # 欧式距离越小，则越有可能为该人脸对应目标
+        # 为了简便，这里将距离最小对应的人名结果赋予边框文字，不考虑 unknown 情况
         index = distance.index(min(distance))
         name = names[index]
         draw.text((int(box[0]), int(box[1])), str(name), fill=color_style, font=font_style)
     return frame_draw
 
 
-# 加载图片数据集
+# 将需进行人脸识别的照片分别放在独立的文件夹下，并以其姓名命名文件夹，格式如下
+# 不应与之前的照片相同
+'''
+--testing
+    |--origin
+        |--Ann_Veneman
+            |--Ann_Veneman_0006.jpg
+            |--Ann_Veneman_0007.jpg
+            |--...
+        |--Catherine_Zeta-Jones
+            |--Catherine_Zeta-Jones_0006.jpg
+            |--Catherine_Zeta-Jones_0007.jpg
+            |--...
+        |--...
+'''
 dataset = datasets.ImageFolder('./testing/origin')
 dataset.idx_to_class = {i: c for c, i in dataset.class_to_idx.items()}
 loader = DataLoader(dataset, collate_fn=collate_fn, num_workers=workers)
@@ -135,5 +174,6 @@ for x, y in loader:
         os.mkdir(base_path)
     save_name = dataset.idx_to_class[y]+"_"+i.zfill(4)+"_result"
     frame_result = detect_frame(x, save_name)
+    # 导出并保存图片
     frame_result.save(base_path+'/{}.jpg'.format(save_name), quality=100)
     i = str(int(i)+1)
