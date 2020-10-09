@@ -26,4 +26,4 @@
 [哲学家就餐问题](./c-OperatingSystemBasics/philosopher.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，实现著名的哲学家就餐问题，且不能出现死锁。基于[此 CSDN 博客](https://blog.csdn.net/thelostlamb/article/details/80741319)提供的函数方法改造得来。
 [生产者消费者问题](./c-OperatingSystemBasics/producer-consumer.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，创建多个进程作为生产者，多个进程作为消费者，一个文件作为数据源，实现生产者消费者问题。
 [管道通信](./c-OperatingSystemBasics/pipe.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，利用管道实现进程间通信。利用基于 IPC 机制的管道实现进程间的匿名通信。
-[人脸识别](./python-FaceRecognition)|**Python**|基于 facenet 模型，使用 Pytorch 实现人脸识别。
+[人脸识别](./python-FaceRecognition)|**Python**|基于 [FaceNet 模型](https://arxiv.org/pdf/1503.03832)，使用 Pytorch 实现人脸识别。代码编写主要参考[此博客](https://www.cnblogs.com/muyisun/p/13338098.html)。
