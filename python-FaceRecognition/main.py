@@ -1,13 +1,12 @@
 # 代码主要参考 [facenet-pytorch库的简单使用](https://www.cnblogs.com/muyisun/p/13338098.html)
 import os
 import shutil
-
+import torch
+import pandas as pd
 from PIL import ImageFont, ImageDraw
 from facenet_pytorch import MTCNN, InceptionResnetV1
-import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets
-import pandas as pd
 
 
 # 删除目录下的所有文件夹，但保留目录下的文件
@@ -101,7 +100,7 @@ embeddings = resnet(aligned).detach().cpu()
 # 计算混淆矩阵并打印到屏幕上
 dists = [[(e1 - e2).norm().item() for e2 in embeddings] for e1 in embeddings]
 print(pd.DataFrame(dists, columns=names, index=names))
-# 保存存储有人脸特征向量的数据集到当前目录
+# 保存存储有人脸特征向量和对应人名的数据集到当前目录
 torch.save(embeddings, 'embeddings.pt')
 torch.save(names, 'names.pt')
 
