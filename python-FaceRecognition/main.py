@@ -137,9 +137,9 @@ def detect_frame(img, img_name):
     for i, box in enumerate(boxes):
         draw.rectangle(box.tolist(), outline=color_style)
         face_embedding = resnet(faces[i].unsqueeze(0).to(device))
-        # 计算欧式距离
+        # 计算欧氏距离
         distance = [(face_embedding - embeddings[i]).norm().item() for i in range(embeddings.size()[0])]
-        # 欧式距离越小，则越有可能为该人脸对应目标
+        # 欧氏距离越小，则越有可能为该人脸对应目标
         # 为了简便，这里将距离最小对应的人名结果赋予边框文字，不考虑 unknown 情况
         index = distance.index(min(distance))
         name = names[index]
