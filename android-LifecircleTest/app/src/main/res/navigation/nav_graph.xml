@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.coursework.lifecircletest.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:name="com.coursework.lifecircletest.MainFragment"
+        android:label="@string/main_fragment_label"
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.coursework.lifecircletest.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:name="com.coursework.lifecircletest.RunCodeFragment"
+        android:label="@string/run_code_fragment_label"
+        tools:layout="@layout/fragment_run_code">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

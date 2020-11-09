@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">LifecircleTest</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_refresh">重置排序时间</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="main_fragment_text">您在另一个 fragment 中执行算法花费的时间为</string>
+    <string name="run_code_time_zero">0 ms</string>
+    <string name="unsorted_array_label">需要进行排序的数组如下：</string>
+    <string name="sorted_array_label">进行排序后的结果数组如下：</string>
+    <string name="run_code">执行排序</string>
+    <string name="to_run_code">前往执行算法</string>
+    <string name="to_check_time">查看排序时间</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="main_fragment_label">Main Fragment</string>
+    <string name="run_code_fragment_label">Run Code Fragment</string>
 </resources>
