@@ -27,4 +27,4 @@
 [生产者消费者问题](./c-OperatingSystemBasics/producer-consumer.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，创建多个进程作为生产者，多个进程作为消费者，一个文件作为数据源，实现生产者消费者问题。
 [管道通信](./c-OperatingSystemBasics/pipe.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，利用管道实现进程间通信。利用基于 IPC 机制的管道实现进程间的匿名通信。
 [人脸识别](./python-FaceRecognition)|**Python**|基于 [FaceNet 模型](https://arxiv.org/pdf/1503.03832)，使用 Pytorch 实现人脸识别。代码编写主要参考[此博客](https://www.cnblogs.com/muyisun/p/13338098.html)。
-[Android Lifecircle 测试](./android-LifecircleTest)|**Android**|移动计算及应用开发技术课程作业，基于 [Lifecircle 组件](https://developer.android.com/topic/libraries/architecture/lifecycle.html)实现处理 Android 应用的生命周期行为。在此基础上实现对选择排序算法的计时。
+[Android Lifecycle 测试](./android-LifecycleTest)|**Android**|移动计算及应用开发技术课程作业，实现处理 Android 应用的[生命周期](https://developer.android.com/guide/components/activities/activity-lifecycle)行为。在此基础上实现对选择排序算法的计时。

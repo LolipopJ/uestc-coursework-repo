@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/RunCodeFragment">
+
+    <fragment
+        android:id="@+id/RunCodeFragment"
+        android:name="com.coursework.lifecycletest.RunCodeFragment"
+        android:label="@string/run_code_fragment_label"
+        tools:layout="@layout/fragment_run_code">
+
+        <action
+            android:id="@+id/action_RunCodeFragment_to_ViewRunCodeTimeFragment"
+            app:destination="@id/ViewRunCodeTimeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ViewRunCodeTimeFragment"
+        android:name="com.coursework.lifecycletest.ViewRunCodeTimeFragment"
+        android:label="@string/main_fragment_label"
+        tools:layout="@layout/fragment_view_run_code_time">
+
+        <action
+            android:id="@+id/action_ViewRunCodeTimeFragment_to_RunCodeFragment"
+            app:destination="@id/RunCodeFragment" />
+    </fragment>
+</navigation>
