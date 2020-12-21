@@ -1,14 +1,14 @@
 # 课程项目
 
-此仓库用以记录于 2018 - 2022, UESTC 本科期间所写的课程作业代码及完成的实验。
+此仓库用以记录于 2018 - 2022, UESTC 本科期间所写的课程作业代码及完成的实验报告。
 
 ## 关于
 
-**所有代码仅作参考，请勿直接 copy！**
+**所有代码和实验报告仅作参考，请勿直接 copy！**
 
 部分课程作业 **C/C++** 代码编译测试于 [C-FREE5](http://www.programarts.com/cfree_ch/)（最后更新于 2010 年 7 月），与一直在维护更新的编译软件如 Visual Studio 和最新的编写规范相比存在很多不同之处。故直接在其他编译软件上运行很有可能发生编译无法通过的问题，请加以甄别使用。
 
-## 索引
+## 代码索引
 
 项目名|语言|简介
 ---|---|---
@@ -28,3 +28,9 @@
 [管道通信](./c-OperatingSystemBasics/pipe.c)|**C**|[操作系统基础实验](./c-OperatingSystemBasics)，运行于 Unix (Centos 7) 环境，利用管道实现进程间通信。利用基于 IPC 机制的管道实现进程间的匿名通信。
 [人脸识别](./python-FaceRecognition)|**Python**|基于 [FaceNet 模型](https://arxiv.org/pdf/1503.03832)，使用 Pytorch 实现人脸识别。代码编写主要参考[此博客](https://www.cnblogs.com/muyisun/p/13338098.html)。
 [Android Lifecycle 测试](./android-LifecycleTest)|**Android**|移动计算及应用开发技术课程作业，实现处理 Android 应用的[生命周期](https://developer.android.com/guide/components/activities/activity-lifecycle)行为。在此基础上实现对选择排序算法的计时。
+
+## 实验报告索引
+
+实验课程|实验名|简介
+---|---|---
+[云计算基础](./pdf-Hadoop)|构建 Hadoop 单机环境模式等|包括构建Hadoop单机环境模式，Hadoop伪分布式环境模式，Eclipse编译MapReduce程序，Hadoop下单词反向索引程序四个实验
